@@ -1,0 +1,27 @@
+Act as a senior creative frontend developer and designer. Build a cinematic single-page narrative web application inspired by dark luxury editorial sites.
+
+### Design System
+- Theme: Deep midnight black/charcoal background (#0a0a0c), sharp white primary text (#f8f8f8), gold/bronze metallic accents (#d4af37, #c5a059), and subtle red status accents (#ef4444).
+- Typography: Use Google Fonts - Cinzel or Cormorant Garamond for cinematic headers, and Inter/Plus Jakarta Sans for body text.
+- Styling: Tailwind CSS. Include subtle borders (border-white/10), dark ambient radial gradients, and gold glow effects (shadow-[0_0_20px_rgba(212,175,55,0.15)]).
+
+### Site Structure & Features
+1. Navigation & Audio Bar:
+   - Floating header with sound toggle (Web Audio API or ambient background loop), chapter index dropdown/modal, and progress indicator.
+
+2. Hero Section:
+   - Dramatic headline with metallic gradient text: "THE LAST DANCE FOR GLORY".
+   - Subtitle: "A CINEMATIC PROPHECY · SUMMER MMXXVI".
+   - Ambient countdown timer or interactive scroll call-to-action ("SCROLL TO BEGIN").
+
+3. Narrative Chapters (Card & Grid Sections):
+   - Chapter I: The Legends (Grid of player spotlight cards showing age/number, status badge e.g., 'ELIMINATED', quote/story, and bold typography).
+   - Chapter II: The Contenders (Ranked list with status tags, match commentary, and highlight borders).
+   - Chapter III: The Underdogs & Heirs (Responsive 2 to 3 column layout showcasing young talents and rising teams).
+   - Chapter IV: Interactive Mountain / Bracket (Selectable nations filter that highlights their remaining path/stats).
+   - Chapter V: The Storylines & Stats Counter (Grid of minimal stat counters e.g., 0 Hosts, 0 Cities, 0 Trophy, 1 Winner).
+
+4. Animations & Interactivity:
+   - Use Framer Motion for fade-in section reveals on scroll.
+   - Smooth hover scale transitions on cards.
+   - Interactive nation selection state that filters content in real time.

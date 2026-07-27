@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Last Dance for Glory — A Cinematic Prophecy</title>
+  <meta name="description" content="A cinematic narrative experience. The last dance for glory — summer MMXXVI.">
+  <meta property="og:title" content="The Last Dance for Glory">
+  <meta property="og:description" content="A cinematic prophecy · summer MMXXVI">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../Images/og-proone.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Last Dance for Glory">
+  <meta name="twitter:description" content="A cinematic prophecy · summer MMXXVI">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0c;
+      --text: #f8f8f8;
+      --muted: #888;
+      --gold: #d4af37;
+      --gold-dim: #c5a059;
+      --red: #ef4444;
+      --border: rgba(255,255,255,0.06);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    ::selection { background: var(--gold); color: #0a0a0c; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #0a0a0c; }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+
+    .font-cinzel { font-family: 'Cinzel', serif; }
+    .font-inter { font-family: 'Inter', sans-serif; }
+
+    .text-gold { color: var(--gold); }
+    .text-gold-dim { color: var(--gold-dim); }
+    .text-red-accent { color: var(--red); }
+    .border-gold\/20 { border-color: rgba(212, 175, 55, 0.2); }
+
+    .bg-void { background: #0a0a0c; }
+    .bg-void-light { background: #121216; }
+    .bg-void-surface { background: #18181d; }
+
+    .gold-glow {
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.12);
+    }
+
+    .gold-gradient {
+      background: linear-gradient(135deg, #d4af37, #f0d68a, #c5a059);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .gold-gradient-bg {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(197, 160, 89, 0.04));
+    }
+
+    .film-grain {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.3;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+
+    .radial-glow {
+      background: radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.06) 0%, transparent 60%);
+    }
+
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-dim));
+      z-index: 999;
+    }
+
+    .nav-blur {
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      background: rgba(10, 10, 12, 0.7);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-video-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(10,10,12,0.3) 0%, rgba(10,10,12,0.7) 50%, rgba(10,10,12,0.95) 100%);
+      z-index: 1;
+    }
+
+    .card-hover {
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(212, 175, 55, 0.08);
+    }
+
+    .status-eliminated { color: var(--red); }
+    .status-active { color: #22c55e; }
+    .status-pending { color: var(--gold-dim); }
+
+    .reveal-fade {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal-fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .bracket-line {
+      position: absolute;
+      background: var(--border);
+    }
+
+    .filter-btn.active {
+      background: var(--gold);
+      color: #0a0a0c;
+      border-color: var(--gold);
+    }
+
+    .stat-number {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      font-family: 'Cinzel', serif;
+      line-height: 1;
+    }
+
+    @media (max-width: 768px) {
+      .hero-title { font-size: 2.5rem !important; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal-fade { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="film-grain"></div>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- NAV -->
+  <nav class="fixed top-0 left-0 right-0 z-50 nav-blur transition-all duration-500" id="navbar">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="#" class="font-cinzel text-sm tracking-[0.2em] text-gold">GLORY</a>
+      <div class="flex items-center gap-6">
+        <button id="chapterToggle" class="text-xs tracking-[0.15em] text-white/50 hover:text-gold transition-colors font-inter">
+          <i class="fa-regular fa-list mr-2"></i>Chapters
+        </button>
+        <div class="w-20 h-px bg-white/10"></div>
+        <span class="text-[10px] tracking-[0.2em] text-white/30 font-inter" id="progressLabel">0%</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CHAPTER INDEX -->
+  <div id="chapterModal" class="fixed inset-0 z-40 flex items-center justify-center pointer-events-none opacity-0 transition-opacity duration-500" style="background: rgba(10,10,12,0.9); backdrop-filter: blur(20px);">
+    <div class="flex flex-col gap-6 text-center pointer-events-auto">
+      <a href="#hero" class="chapter-link text-2xl font-cinzel tracking-wider text-white/40 hover:text-gold transition-colors">Prologue</a>
+      <a href="#chapter1" class="chapter-link text-2xl font-cinzel tracking-wider text-white/40 hover:text-gold transition-colors">I · The Legends</a>
+      <a href="#chapter2" class="chapter-link text-2xl font-cinzel tracking-wider text-white/40 hover:text-gold transition-colors">II · The Contenders</a>
+      <a href="#chapter3" class="chapter-link text-2xl font-cinzel tracking-wider text-white/40 hover:text-gold transition-colors">III · The Underdogs</a>
+      <a href="#chapter4" class="chapter-link text-2xl font-cinzel tracking-wider text-white/40 hover:text-gold transition-colors">IV · The Bracket</a>
+      <a href="#chapter5" class="chapter-link text-2xl font-cinzel tracking-wider text-white/40 hover:text-gold transition-colors">V · The Reckoning</a>
+    </div>
+  </div>
+
+  <main>
+    <!-- HERO -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+        <source src="animation.mp4" type="video/mp4">
+      </video>
+      <div class="hero-video-overlay"></div>
+      <div class="radial-glow absolute inset-0 z-[1]"></div>
+      <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+        <p class="text-xs tracking-[0.3em] text-gold-dim mb-8 font-inter" id="heroLabel">A CINEMATIC PROPHECY · SUMMER MMXXVI</p>
+        <h1 class="font-cinzel text-6xl md:text-8xl lg:text-9xl font-black leading-none mb-8 gold-gradient" id="heroTitle">THE LAST<br>DANCE FOR<br>GLORY</h1>
+        <div class="w-16 h-px bg-gold/30 mx-auto mb-8"></div>
+        <p class="text-sm tracking-[0.2em] text-white/30 font-inter" id="heroCTA">SCROLL TO BEGIN</p>
+        <div class="mt-12 animate-bounce text-gold-dim/50">
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER I: THE LEGENDS -->
+    <section id="chapter1" class="relative z-10 py-32 px-6 bg-void">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-16 reveal-fade">
+          <p class="text-xs tracking-[0.25em] text-gold-dim font-inter mb-4">CHAPTER I</p>
+          <h2 class="font-cinzel text-4xl md:text-6xl font-bold">The Legends</h2>
+          <div class="w-12 h-px bg-gold/30 mt-6"></div>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4" id="legendsGrid">
+          <div class="bg-void-light border border-white/5 rounded-sm p-8 card-hover reveal-fade">
+            <div class="flex items-start justify-between mb-6">
+              <span class="text-5xl font-cinzel font-black text-white/5">07</span>
+              <span class="text-[10px] tracking-[0.2em] status-eliminated font-inter"><i class="fa-solid fa-circle text-[6px] mr-1.5 align-middle"></i>ELIMINATED</span>
+            </div>
+            <h3 class="font-cinzel text-xl font-bold mb-2">Marcus Aurelius</h3>
+            <p class="text-xs text-white/30 font-inter mb-1">Age 32 · Forward</p>
+            <p class="text-sm text-white/50 leading-relaxed font-inter">&ldquo;The light that burns twice as bright burns half as long.&rdquo;</p>
+          </div>
+          <div class="bg-void-light border border-white/5 rounded-sm p-8 card-hover reveal-fade">
+            <div class="flex items-start justify-between mb-6">
+              <span class="text-5xl font-cinzel font-black text-white/5">11</span>
+              <span class="text-[10px] tracking-[0.2em] status-eliminated font-inter"><i class="fa-solid fa-circle text-[6px] mr-1.5 align-middle"></i>ELIMINATED</span>
+            </div>
+            <h3 class="font-cinzel text-xl font-bold mb-2">Victoria Cross</h3>
+            <p class="text-xs text-white/30 font-inter mb-1">Age 29 · Midfielder</p>
+            <p class="text-sm text-white/50 leading-relaxed font-inter">&ldquo;Every champion was once a contender who refused to give up.&rdquo;</p>
+          </div>
+          <div class="bg-void-light border border-white/5 rounded-sm p-8 card-hover reveal-fade">
+            <div class="flex items-start justify-between mb-6">
+              <span class="text-5xl font-cinzel font-black text-white/5">03</span>
+              <span class="text-[10px] tracking-[0.2em] status-active font-inter"><i class="fa-solid fa-circle text-[6px] mr-1.5 align-middle"></i>ACTIVE</span>
+            </div>
+            <h3 class="font-cinzel text-xl font-bold mb-2">Dante King</h3>
+            <p class="text-xs text-white/30 font-inter mb-1">Age 24 · Striker</p>
+            <p class="text-sm text-white/50 leading-relaxed font-inter">&ldquo;I haven't come this far to only come this far.&rdquo;</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER II: THE CONTENDERS -->
+    <section id="chapter2" class="relative z-10 py-32 px-6 bg-void-light">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-16 reveal-fade">
+          <p class="text-xs tracking-[0.25em] text-gold-dim font-inter mb-4">CHAPTER II</p>
+          <h2 class="font-cinzel text-4xl md:text-6xl font-bold">The Contenders</h2>
+          <div class="w-12 h-px bg-gold/30 mt-6"></div>
+        </div>
+        <div class="space-y-3" id="contendersList">
+          <div class="flex items-center gap-6 bg-void border border-white/5 rounded-sm px-8 py-5 card-hover reveal-fade">
+            <span class="font-cinzel text-2xl font-bold text-gold-dim w-10">01</span>
+            <div class="flex-1">
+              <h3 class="font-cinzel text-lg font-bold">Atlas Corporation</h3>
+              <p class="text-xs text-white/30 font-inter">Record: 14W · 2L · 1D</p>
+            </div>
+            <span class="text-[10px] tracking-[0.15em] status-active font-inter"><i class="fa-solid fa-circle text-[6px] mr-1.5 align-middle"></i>FAVOURITE</span>
+          </div>
+          <div class="flex items-center gap-6 bg-void border border-white/5 rounded-sm px-8 py-5 card-hover reveal-fade">
+            <span class="font-cinzel text-2xl font-bold text-gold-dim w-10">02</span>
+            <div class="flex-1">
+              <h3 class="font-cinzel text-lg font-bold">Phoenix Rising</h3>
+              <p class="text-xs text-white/30 font-inter">Record: 12W · 3L · 2D</p>
+            </div>
+            <span class="text-[10px] tracking-[0.15em] status-pending font-inter"><i class="fa-solid fa-circle text-[6px] mr-1.5 align-middle"></i>CONTENDER</span>
+          </div>
+          <div class="flex items-center gap-6 bg-void border border-white/5 rounded-sm px-8 py-5 card-hover reveal-fade">
+            <span class="font-cinzel text-2xl font-bold text-gold-dim w-10">03</span>
+            <div class="flex-1">
+              <h3 class="font-cinzel text-lg font-bold">Ironclad United</h3>
+              <p class="text-xs text-white/30 font-inter">Record: 11W · 4L · 2D</p>
+            </div>
+            <span class="text-[10px] tracking-[0.15em] status-pending font-inter"><i class="fa-solid fa-circle text-[6px] mr-1.5 align-middle"></i>CONTENDER</span>
+          </div>
+          <div class="flex items-center gap-6 bg-void border border-white/5 rounded-sm px-8 py-5 card-hover reveal-fade">
+            <span class="font-cinzel text-2xl font-bold text-gold-dim w-10">04</span>
+            <div class="flex-1">
+              <h3 class="font-cinzel text-lg font-bold">Crimson Tide</h3>
+              <p class="text-xs text-white/30 font-inter">Record: 10W · 5L · 2D</p>
+            </div>
+            <span class="text-[10px] tracking-[0.15em] status-eliminated font-inter"><i class="fa-solid fa-circle text-[6px] mr-1.5 align-middle"></i>ELIMINATED</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER III: THE UNDERDOGS -->
+    <section id="chapter3" class="relative z-10 py-32 px-6 bg-void">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-16 reveal-fade">
+          <p class="text-xs tracking-[0.25em] text-gold-dim font-inter mb-4">CHAPTER III</p>
+          <h2 class="font-cinzel text-4xl md:text-6xl font-bold">The Underdogs &amp; Heirs</h2>
+          <div class="w-12 h-px bg-gold/30 mt-6"></div>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="bg-void-light border border-white/5 rounded-sm p-8 card-hover reveal-fade">
+            <div class="text-3xl mb-4 text-gold-dim opacity-50"><i class="fa-regular fa-star"></i></div>
+            <h3 class="font-cinzel text-lg font-bold mb-2">Nova Battalion</h3>
+            <p class="text-xs text-white/30 font-inter mb-3">Rising Stars · Division B</p>
+            <p class="text-sm text-white/50 leading-relaxed font-inter">The youngest roster in the league, playing with something to prove and nothing to lose.</p>
+          </div>
+          <div class="bg-void-light border border-white/5 rounded-sm p-8 card-hover reveal-fade">
+            <div class="text-3xl mb-4 text-gold-dim opacity-50"><i class="fa-regular fa-bolt"></i></div>
+            <h3 class="font-cinzel text-lg font-bold mb-2">Thunder Academy</h3>
+            <p class="text-xs text-white/30 font-inter mb-3">Academy Team · Division C</p>
+            <p class="text-sm text-white/50 leading-relaxed font-inter">Built from the ground up. No stars, no egos — just discipline and a system that works.</p>
+          </div>
+          <div class="bg-void-light border border-white/5 rounded-sm p-8 card-hover reveal-fade">
+            <div class="text-3xl mb-4 text-gold-dim opacity-50"><i class="fa-regular fa-compass"></i></div>
+            <h3 class="font-cinzel text-lg font-bold mb-2">Void Collective</h3>
+            <p class="text-xs text-white/30 font-inter mb-3">Independent · Unranked</p>
+            <p class="text-sm text-white/50 leading-relaxed font-inter">They don't play by the rules. They don't need to. The dark horse no one saw coming.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER IV: THE BRACKET -->
+    <section id="chapter4" class="relative z-10 py-32 px-6 bg-void-light">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-16 reveal-fade">
+          <p class="text-xs tracking-[0.25em] text-gold-dim font-inter mb-4">CHAPTER IV</p>
+          <h2 class="font-cinzel text-4xl md:text-6xl font-bold">The Bracket</h2>
+          <div class="w-12 h-px bg-gold/30 mt-6"></div>
+        </div>
+        <div class="flex flex-wrap gap-3 mb-12 reveal-fade" id="filterTags">
+          <button class="filter-btn active text-xs tracking-[0.15em] px-5 py-2.5 border border-white/10 rounded-sm font-inter transition-all" data-nation="all">All Nations</button>
+          <button class="filter-btn text-xs tracking-[0.15em] px-5 py-2.5 border border-white/10 rounded-sm font-inter transition-all" data-nation="north">Northern Alliance</button>
+          <button class="filter-btn text-xs tracking-[0.15em] px-5 py-2.5 border border-white/10 rounded-sm font-inter transition-all" data-nation="east">Eastern Coalition</button>
+          <button class="filter-btn text-xs tracking-[0.15em] px-5 py-2.5 border border-white/10 rounded-sm font-inter transition-all" data-nation="south">Southern Union</button>
+          <button class="filter-btn text-xs tracking-[0.15em] px-5 py-2.5 border border-white/10 rounded-sm font-inter transition-all" data-nation="west">Western Pact</button>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4" id="bracketGrid">
+          <div class="bg-void border border-white/5 rounded-sm p-6 reveal-fade" data-region="north">
+            <p class="text-[10px] tracking-[0.2em] text-gold-dim font-inter mb-3">NORTHERN ALLIANCE</p>
+            <h3 class="font-cinzel text-lg font-bold">Quarterfinal · Path A</h3>
+            <p class="text-xs text-white/30 font-inter mt-2">2 matches remaining · Top seed</p>
+          </div>
+          <div class="bg-void border border-white/5 rounded-sm p-6 reveal-fade" data-region="east">
+            <p class="text-[10px] tracking-[0.2em] text-gold-dim font-inter mb-3">EASTERN COALITION</p>
+            <h3 class="font-cinzel text-lg font-bold">Quarterfinal · Path B</h3>
+            <p class="text-xs text-white/30 font-inter mt-2">3 matches remaining · Second seed</p>
+          </div>
+          <div class="bg-void border border-white/5 rounded-sm p-6 reveal-fade" data-region="south">
+            <p class="text-[10px] tracking-[0.2em] text-gold-dim font-inter mb-3">SOUTHERN UNION</p>
+            <h3 class="font-cinzel text-lg font-bold">Semifinal · Path C</h3>
+            <p class="text-xs text-white/30 font-inter mt-2">1 match remaining · Third seed</p>
+          </div>
+          <div class="bg-void border border-white/5 rounded-sm p-6 reveal-fade" data-region="west">
+            <p class="text-[10px] tracking-[0.2em] text-gold-dim font-inter mb-3">WESTERN PACT</p>
+            <h3 class="font-cinzel text-lg font-bold">Semifinal · Path D</h3>
+            <p class="text-xs text-white/30 font-inter mt-2">2 matches remaining · Fourth seed</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER V: THE RECKONING -->
+    <section id="chapter5" class="relative z-10 py-32 px-6 bg-void min-h-screen flex items-center">
+      <div class="max-w-7xl mx-auto w-full">
+        <div class="mb-16 reveal-fade">
+          <p class="text-xs tracking-[0.25em] text-gold-dim font-inter mb-4">CHAPTER V</p>
+          <h2 class="font-cinzel text-4xl md:text-6xl font-bold">The Reckoning</h2>
+          <div class="w-12 h-px bg-gold/30 mt-6"></div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="bg-void-light border border-white/5 rounded-sm p-10 text-center reveal-fade">
+            <div class="stat-number gold-gradient" data-target="8">0</div>
+            <p class="text-xs text-white/30 font-inter mt-3 tracking-[0.15em]">Host Cities</p>
+          </div>
+          <div class="bg-void-light border border-white/5 rounded-sm p-10 text-center reveal-fade">
+            <div class="stat-number gold-gradient" data-target="24">0</div>
+            <p class="text-xs text-white/30 font-inter mt-3 tracking-[0.15em]">Nations</p>
+          </div>
+          <div class="bg-void-light border border-white/5 rounded-sm p-10 text-center reveal-fade">
+            <div class="stat-number gold-gradient" data-target="1">0</div>
+            <p class="text-xs text-white/30 font-inter mt-3 tracking-[0.15em]">Trophy</p>
+          </div>
+          <div class="bg-void-light border border-white/5 rounded-sm p-10 text-center reveal-fade">
+            <div class="stat-number gold-gradient" data-target="1">0</div>
+            <p class="text-xs text-white/30 font-inter mt-3 tracking-[0.15em]">Winner</p>
+          </div>
+        </div>
+        <div class="mt-20 text-center reveal-fade">
+          <div class="w-px h-16 bg-gold/20 mx-auto"></div>
+          <p class="font-cinzel text-xl md:text-3xl gold-gradient mt-8 tracking-wider">ONE LEGEND RISES</p>
+          <p class="text-xs text-white/20 font-inter mt-4 tracking-[0.2em]">THE LAST DANCE FOR GLORY · MMXXVI</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="relative z-10 border-t border-white/5 py-10 px-6">
+    <div class="max-w-7xl mx-auto flex items-center justify-between text-[10px] tracking-[0.15em] text-white/20 font-inter">
+      <p>GLORY · MMXXVI</p>
+      <a href="#hero" class="hover:text-gold transition-colors"><i class="fa-regular fa-arrow-up mr-1"></i>Return to top</a>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) {
+        document.querySelectorAll('.reveal-fade').forEach(el => el.classList.add('visible'));
+        return;
+      }
+
+      // LENIS
+      const lenis = new Lenis({
+        duration: 1.6,
+        easing: (t) => 1 - Math.pow(1 - t, 3),
+        smoothWheel: true,
+      });
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+
+      // SCROLL PROGRESS
+      const progressBar = document.getElementById('scrollProgress');
+      const progressLabel = document.getElementById('progressLabel');
+      lenis.on('scroll', (e) => {
+        const pct = Math.round(e.progress * 100);
+        progressBar.style.width = `${pct}%`;
+        if (progressLabel) progressLabel.textContent = `${pct}%`;
+      });
+
+      // NAVBAR
+      const navbar = document.getElementById('navbar');
+      lenis.on('scroll', () => {
+        navbar.classList.toggle('nav-blur', window.scrollY > 50);
+      });
+
+      // CHAPTER MODAL
+      const chapterToggle = document.getElementById('chapterToggle');
+      const chapterModal = document.getElementById('chapterModal');
+      let modalOpen = false;
+
+      chapterToggle.addEventListener('click', () => {
+        modalOpen = !modalOpen;
+        chapterModal.style.pointerEvents = modalOpen ? 'auto' : 'none';
+        gsap.to(chapterModal, { opacity: modalOpen ? 1 : 0, duration: 0.5, ease: 'power2.out' });
+      });
+
+      document.querySelectorAll('.chapter-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          modalOpen = false;
+          gsap.to(chapterModal, { opacity: 0, duration: 0.3, ease: 'power2.out', onComplete: () => {
+            chapterModal.style.pointerEvents = 'none';
+          }});
+          const target = document.querySelector(link.getAttribute('href'));
+          if (target) lenis.scrollTo(target, { duration: 1.5 });
+        });
+      });
+
+      // HERO ANIMATION
+      gsap.from('#heroLabel', { opacity: 0, y: 30, duration: 1, ease: 'power2.out', delay: 0.5 });
+      gsap.from('#heroTitle', { opacity: 0, y: 60, duration: 1.2, ease: 'power3.out', delay: 0.8 });
+      gsap.from('#heroCTA', { opacity: 0, duration: 0.8, ease: 'power2.out', delay: 1.8 });
+
+      // REVEAL FADE ON SCROLL
+      document.querySelectorAll('.reveal-fade').forEach((el) => {
+        ScrollTrigger.create({
+          trigger: el,
+          start: 'top 85%',
+          once: true,
+          onEnter: () => el.classList.add('visible'),
+        });
+      });
+
+      // ANIMATED COUNTERS
+      document.querySelectorAll('.stat-number').forEach((counter) => {
+        const target = parseInt(counter.getAttribute('data-target'), 10);
+        ScrollTrigger.create({
+          trigger: counter,
+          start: 'top 85%',
+          once: true,
+          onEnter: () => {
+            let current = 0;
+            const inc = Math.ceil(target / 50);
+            const interval = setInterval(() => {
+              current += inc;
+              if (current >= target) { current = target; clearInterval(interval); }
+              counter.textContent = current;
+            }, 30);
+          },
+        });
+      });
+
+      // BRACKET FILTER
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const nation = btn.dataset.nation;
+          document.querySelectorAll('#bracketGrid > div').forEach(card => {
+            if (nation === 'all' || card.dataset.region === nation) {
+              gsap.to(card, { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out' });
+            } else {
+              gsap.to(card, { opacity: 0.2, scale: 0.95, duration: 0.4, ease: 'power2.out' });
+            }
+          });
+        });
+      });
+
+      ScrollTrigger.refresh();
+    });
+  </script>
+</body>
+</html>
