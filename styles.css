@@ -1143,6 +1143,91 @@ button {
 }
 
 /* ============================================
+   FEATURE BADGES
+   ============================================ */
+.feature-badges {
+  padding: 60px 0 40px;
+  background: var(--bg);
+  border-top: 1px solid var(--border-light);
+}
+
+.feature-badges-inner {
+  text-align: center;
+}
+
+.feature-badges-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 32px;
+}
+
+.feature-badges-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.feature-badge-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  text-align: left;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-badge-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(17, 17, 17, 0.04);
+}
+
+.feature-badge-item i {
+  font-size: 1.1rem;
+  color: var(--accent);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.feature-badge-text strong {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.feature-badge-text span {
+  display: block;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--secondary);
+}
+
+@media (max-width: 768px) {
+  .feature-badges-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .feature-badge-item {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .feature-badges-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
    FOOTER
    ============================================ */
 .footer {
@@ -1202,6 +1287,25 @@ button {
   justify-content: space-between;
   font-size: 0.8125rem;
   color: var(--secondary);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-badge {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  border: 1px solid var(--border-light);
+  padding: 4px 12px;
+  border-radius: 100px;
+  cursor: default;
 }
 
 .back-to-top {
@@ -1383,7 +1487,7 @@ button {
 
   .footer-bottom {
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
     text-align: center;
   }
 

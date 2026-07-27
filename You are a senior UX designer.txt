@@ -1,0 +1,420 @@
+You are a senior UX designer and front-end engineer.
+
+Your task is to redesign and enhance the existing website while preserving its architecture, SEO, accessibility, and overall functionality.
+
+IMPORTANT
+
+The current website is already well structured.
+DO NOT rebuild it from scratch.
+DO NOT change the content hierarchy.
+DO NOT remove existing SEO, Schema.org markup, accessibility features, or semantic HTML.
+
+Instead, transform the visual experience.
+
+====================================================
+DESIGN INSPIRATION
+====================================================
+
+Use https://www.johnnyharris.ch/ ONLY as inspiration for the overall visual language.
+
+DO NOT copy layouts, graphics, illustrations, animations, typography, or assets.
+
+Capture only the feeling:
+
+• Editorial
+• Sophisticated
+• Minimal
+• Documentary
+• Premium
+• Timeless
+• Elegant
+• Spacious
+• Story-driven
+
+The website should feel like a premium executive documentary rather than a corporate template.
+
+====================================================
+COLOR PALETTE
+====================================================
+
+Replace the current dark/blue theme with a warm editorial palette.
+
+Primary Background
+#F5F2EB
+
+Secondary Background
+#ECE7DD
+
+White Sections
+#FFFFFF
+
+Primary Text
+#171717
+
+Secondary Text
+#5F5F5F
+
+Muted Text
+#8B8B8B
+
+Borders
+#D8D1C5
+
+Accent Color
+#0B5FFF
+
+Quote Background
+#FFF9ED
+
+Avoid:
+
+❌ Bright gradients
+❌ Neon colors
+❌ Glassmorphism
+❌ Heavy shadows
+❌ Flashy effects
+
+Everything should feel natural and understated.
+
+====================================================
+TYPOGRAPHY
+====================================================
+
+Use elegant editorial typography.
+
+Headings:
+Playfair Display
+
+Body:
+Inter
+
+Very large headings.
+
+Generous line height.
+
+Wide margins.
+
+Maximum reading width around 700–800px.
+
+Typography should be the hero of the design.
+
+====================================================
+LAYOUT
+====================================================
+
+Increase whitespace significantly.
+
+Every section should breathe.
+
+Alternate section backgrounds between:
+
+Warm Beige
+
+White
+
+Soft Editorial Gray
+
+Avoid repetitive card layouts.
+
+Instead create rhythm using:
+
+• Split layouts
+• Editorial blocks
+• Full-width quotes
+• Sticky storytelling sections
+• Large imagery
+• Elegant dividers
+
+====================================================
+HERO
+====================================================
+
+Keep existing hero content.
+
+Redesign visually.
+
+Include:
+
+Large editorial typography.
+
+Subtle animated grid.
+
+Film grain texture.
+
+Slow parallax movement.
+
+Elegant portrait placeholder.
+
+Minimal geometric lines.
+
+Very subtle motion.
+
+Large margins.
+
+Buttons should be understated.
+
+====================================================
+ABOUT
+====================================================
+
+Replace generic profile layout with an editorial biography.
+
+Image on one side.
+
+Narrative on the other.
+
+Timeline should feel like a magazine feature.
+
+====================================================
+VISION
+====================================================
+
+Turn the quote into a full-screen editorial moment.
+
+Huge typography.
+
+Minimal distractions.
+
+Slow fade animation.
+
+====================================================
+LEADERSHIP
+====================================================
+
+Replace identical cards with more editorial presentation.
+
+Use alternating layouts.
+
+Large icons.
+
+Thin borders.
+
+Hover should be subtle.
+
+====================================================
+EXPERIENCE
+====================================================
+
+Make the timeline immersive.
+
+Large years.
+
+Animated vertical line.
+
+Storytelling instead of resume style.
+
+====================================================
+ACHIEVEMENTS
+====================================================
+
+Use oversized animated numbers.
+
+Minimal labels.
+
+Lots of whitespace.
+
+Apple-inspired presentation.
+
+====================================================
+MEDIA
+====================================================
+
+Make media cards resemble magazine articles.
+
+Large image placeholders.
+
+Category labels.
+
+Minimal text.
+
+Elegant hover.
+
+====================================================
+TESTIMONIALS
+====================================================
+
+Remove carousel feeling.
+
+Display one large testimonial at a time.
+
+Huge quotation.
+
+Slow fade transition.
+
+Editorial typography.
+
+====================================================
+CONTACT
+====================================================
+
+Redesign into an emotional closing section.
+
+Large heading.
+
+Minimal buttons.
+
+Warm background.
+
+Elegant typography.
+
+====================================================
+ANIMATIONS
+====================================================
+
+Animations should be subtle.
+
+Never flashy.
+
+Use GSAP.
+
+Use Lenis.
+
+Use ScrollTrigger.
+
+Animation style:
+
+Fade
+
+Reveal
+
+Parallax
+
+Scale
+
+Text reveal
+
+Slow image movement
+
+Section transitions
+
+Micro interactions
+
+No bouncing.
+
+No excessive rotations.
+
+Respect prefers-reduced-motion.
+
+====================================================
+BUTTONS
+====================================================
+
+Primary
+
+Black background
+
+White text
+
+Hover:
+Blue
+
+Secondary
+
+Transparent
+
+Thin border
+
+Black text
+
+Hover:
+Black background
+
+White text
+
+====================================================
+CARDS
+====================================================
+
+Remove heavy shadows.
+
+Use
+
+Thin borders
+
+Soft elevation
+
+Minimal radius
+
+Editorial spacing
+
+====================================================
+IMAGERY
+====================================================
+
+Do NOT use stock photos.
+
+Use elegant placeholders.
+
+Portrait placeholders.
+
+Editorial illustrations.
+
+Minimal SVG elements.
+
+====================================================
+CONTENT
+====================================================
+
+Keep the existing content for now.
+
+Do not rewrite text unless necessary.
+
+Improve visual hierarchy only.
+
+====================================================
+DO NOT CHANGE
+====================================================
+
+Do not remove:
+
+SEO
+
+Open Graph
+
+Twitter Cards
+
+JSON-LD
+
+Semantic HTML
+
+ARIA labels
+
+Accessibility
+
+Responsive behavior
+
+Existing animations that improve UX
+
+====================================================
+PERFORMANCE
+====================================================
+
+Maintain Lighthouse score above 95.
+
+Optimize CSS.
+
+Keep JavaScript lightweight.
+
+Avoid unnecessary DOM elements.
+
+====================================================
+GOAL
+====================================================
+
+The final website should feel like an award-winning executive editorial website.
+
+Think:
+
+Apple presentation
+
+Kinfolk magazine
+
+Monocle
+
+Financial Times weekend magazine
+
+Johnny Harris storytelling
+
+without copying any of those designs.
+
+The website should communicate authority, trust, sophistication, and executive leadership through typography, spacing, restrained color, and subtle motion rather than visual effects.
