@@ -1,0 +1,365 @@
+Create a premium executive portfolio website for CEO Sohail Siddique.
+
+IMPORTANT
+
+Do NOT copy johnnyharris.ch.
+
+Instead, capture its design philosophy:
+• Editorial storytelling
+• Minimal luxury
+• Large typography
+• Massive whitespace
+• Cinematic scrolling
+• Elegant transitions
+• Sophisticated simplicity
+• Minimal luxury aesthetic
+• Large editorial typography
+• Massive whitespace
+• Smooth storytelling layout
+• Sticky scrolling sections
+• Cinematic reveal animations
+• Glass-free design
+• Almost monochrome palette
+• Blue accent color
+• Professional photography placeholders
+• Animated SVG illustrations
+• Premium scrolling experience
+• Elegant hover effects
+• Smooth GSAP animations
+• Lenis smooth scrolling
+• SplitType text reveal
+• Responsive design
+• HTML5
+• CSS only (no Tailwind)
+• Vanilla JavaScript
+• SEO optimized
+• Accessibility compliant
+• Lighthouse score above 95
+
+The final website should feel like a blend of Apple, Johnny Harris, Notion, and Linear—modern, timeless, and executive-level.
+
+==================================================
+TECHNOLOGY
+==================================================
+
+Use only:
+
+• HTML5
+• CSS3
+• Vanilla JavaScript
+• GSAP for animations
+• Lenis for smooth scrolling
+• SplitType for text animations
+• Font Awesome icons
+
+No React
+No Bootstrap
+No Tailwind
+
+Generate production-ready code in:
+
+index.html
+styles.css
+script.js
+
+==================================================
+DESIGN
+==================================================
+
+Style:
+Luxury Editorial
+
+Color Palette
+
+Background:
+#F5F5F3
+
+Text:
+#111111
+
+Secondary:
+#666666
+
+Accent:
+#1E5EFF
+
+Typography
+
+Headings:
+Playfair Display
+
+Body:
+Inter
+
+Large editorial typography.
+
+Very generous whitespace.
+
+Maximum content width:
+1200px
+
+Rounded corners:
+20px
+
+Elegant shadows.
+
+Subtle animations only.
+
+==================================================
+HERO
+==================================================
+
+Full-screen hero.
+
+Editorial layout.
+
+Headline:
+
+SOHAIL
+SIDDIQUE
+
+CEO
+Business Leader
+Entrepreneur
+
+Subtitle:
+
+Leading organizations with vision,
+innovation, and strategic execution.
+
+Buttons:
+
+Book a Meeting
+
+View Profile
+
+Background:
+
+Animated editorial grid.
+
+Floating abstract SVG shapes.
+
+Subtle grain texture.
+
+Mouse parallax.
+
+Scroll indicator.
+
+==================================================
+ABOUT
+==================================================
+
+Large portrait placeholder.
+
+Heading:
+
+Leadership with Purpose.
+
+Professional biography placeholder describing Sohail Siddique as an accomplished CEO focused on innovation, organizational growth, strategic leadership, and sustainable success.
+
+Timeline layout.
+
+==================================================
+VISION
+==================================================
+
+Large editorial quote.
+
+Example:
+
+"Leadership is not about managing people.
+It is about inspiring possibilities."
+
+Animated text reveal.
+
+==================================================
+LEADERSHIP
+==================================================
+
+Four premium cards.
+
+Strategic Leadership
+
+Business Growth
+
+Innovation
+
+Organizational Excellence
+
+Hover lift effect.
+
+==================================================
+EXPERIENCE
+==================================================
+
+Timeline.
+
+CEO
+
+Managing Director
+
+Executive Leadership
+
+Board Advisory
+
+Animated vertical progress line.
+
+==================================================
+ACHIEVEMENTS
+==================================================
+
+Animated counters.
+
+100+
+
+Business Projects
+
+20+
+
+Years Experience
+
+500+
+
+Employees Led
+
+15+
+
+Awards
+
+==================================================
+MEDIA
+==================================================
+
+Editorial cards.
+
+Speaking Engagements
+
+Interviews
+
+Publications
+
+Articles
+
+Podcast
+
+Image placeholders.
+
+==================================================
+TESTIMONIALS
+==================================================
+
+Elegant quote slider.
+
+Minimal.
+
+Large typography.
+
+==================================================
+CONTACT
+==================================================
+
+Large editorial CTA.
+
+Let's Build the Future Together.
+
+Buttons:
+
+Schedule Meeting
+
+WhatsApp
+
+Email
+
+==================================================
+FOOTER
+==================================================
+
+SOHAIL SIDDIQUE
+
+CEO
+
+LinkedIn
+
+Facebook
+
+Instagram
+
+Email
+
+Back to top
+
+==================================================
+ANIMATIONS
+==================================================
+
+Use GSAP.
+
+Fade Up
+
+Text Reveal
+
+SplitType
+
+Parallax
+
+Sticky storytelling sections
+
+Smooth scrolling
+
+Image zoom
+
+Hover lift
+
+Magnetic buttons
+
+Scroll progress bar
+
+Mouse-follow glow
+
+Page transition
+
+Loading animation
+
+Respect prefers-reduced-motion.
+
+==================================================
+SEO
+==================================================
+
+Include
+
+Title
+
+Meta Description
+
+Canonical URL
+
+Open Graph
+
+Twitter Cards
+
+JSON-LD Person Schema
+
+JSON-LD Organization Schema
+
+Semantic HTML5
+
+ARIA Labels
+
+Structured headings
+
+Fast loading
+
+Responsive
+
+Accessibility compliant
+
+Lighthouse score above 95.
+
+==================================================
+EXTRA
+==================================================
+
+The website should not resemble a corporate template.
+
+Instead, it should feel like an award-winning executive portfolio with immersive storytelling, refined typography, subtle motion, and a premium user experience. Every section should reveal naturally as the user scrolls, creating a cinematic and memorable journey.
