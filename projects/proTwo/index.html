@@ -692,7 +692,7 @@
       var w = container.clientWidth, h = container.clientHeight;
       var scene = new THREE.Scene();
       var camera = new THREE.PerspectiveCamera(35, w / h, 0.1, 100);
-      camera.position.set(0, 0.2, 7.5);
+      camera.position.set(0, 1.2, 7.5);
 
       var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       renderer.setSize(w, h);
@@ -758,7 +758,7 @@
       jar.add(ring);
 
       jar.scale.set(1.2, 1.2, 1.2);
-      jar.rotation.x = 0.08;
+      jar.rotation.x = -0.35;
       scene.add(jar);
 
       // Circle texture for points (instead of default squares)
