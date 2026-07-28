@@ -763,6 +763,21 @@
       jar.rotation.x = 0.08;
       scene.add(jar);
 
+      // Circle texture for points (instead of default squares)
+      function makeCircleTexture() {
+        var c = document.createElement('canvas');
+        c.width = 32; c.height = 32;
+        var ctx = c.getContext('2d');
+        var gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+        gradient.addColorStop(0, 'rgba(255,255,255,1)');
+        gradient.addColorStop(0.3, 'rgba(255,255,255,0.9)');
+        gradient.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, 32, 32);
+        return new THREE.CanvasTexture(c);
+      }
+      var circleTexture = makeCircleTexture();
+
       // --- HONEY SWIRL (spiral particles) ---
       var swirlCount = 800;
       var swPos = new Float32Array(swirlCount * 3);
@@ -794,6 +809,7 @@
       var swMat = new THREE.PointsMaterial({
         size: 0.12, vertexColors: true, transparent: true, opacity: 0.85,
         blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true,
+        map: circleTexture,
       });
       var swirl = new THREE.Points(swGeo, swMat);
       scene.add(swirl);
@@ -823,6 +839,7 @@
       var spMat = new THREE.PointsMaterial({
         size: 0.06, vertexColors: true, transparent: true, opacity: 0.6,
         blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true,
+        map: circleTexture,
       });
       var sparks = new THREE.Points(spGeo, spMat);
       scene.add(sparks);
