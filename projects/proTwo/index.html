@@ -228,19 +228,19 @@
     }
     .reveal { animation: fadeInUp 0.6s ease forwards; }
 
-    .tilt-card {
+    . {
       perspective: 1200px;
       transform-style: preserve-3d;
       transition: transform 0.15s ease;
     }
-    .tilt-card-inner {
+    .-inner {
       transform-style: preserve-3d;
       transition: transform 0.3s ease;
     }
-    .tilt-card:hover .tilt-card-inner {
+    .:hover .-inner {
       transform: rotateX(var(--rotX, 0deg)) rotateY(var(--rotY, 0deg));
     }
-    .tilt-card .tilt-card-inner > * {
+    . .-inner > * {
       transform: translateZ(20px);
     }
 
@@ -596,8 +596,8 @@
     function renderProducts(filter) {
       const filtered = filter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === filter);
       productGrid.innerHTML = filtered.map(p => `
-        <div class="product-card tilt-card flex flex-col justify-between relative">
-          <div class="tilt-card-inner">
+        <div class="product-card flex flex-col justify-between relative">
+          <div class="-inner">
             <div>
               <div class="product-img-wrap" style="background: linear-gradient(135deg, ${p.bgGradient});">
                 <span class="badge">${p.badge}</span>
@@ -673,7 +673,7 @@
 
     // --- 3D TILT ON PRODUCT CARDS ---
     document.addEventListener('mousemove', function(e) {
-      document.querySelectorAll('.tilt-card').forEach(function(card) {
+      document.querySelectorAll('.').forEach(function(card) {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
