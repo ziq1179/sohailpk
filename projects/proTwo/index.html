@@ -347,7 +347,8 @@
       <div class="lg:col-span-5 relative">
         <div class="relative mx-auto max-w-md lg:max-w-none">
           <div class="relative bg-gradient-to-b from-amber-100 to-amber-50/50 p-0 sm:p-2 rounded-3xl border border-amber-200/60 shadow-2xl overflow-hidden" style="min-height: 520px;">
-            <div id="three-hero"></div>
+            <img src="raspberry.png" alt="Wild Raspberry" class="absolute inset-0 w-full h-full z-0 p-4" style="object-fit: contain;">
+            <div id="three-hero" style="position: absolute; inset: 0; z-index: 1; pointer-events: none;">
             <div class="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-5 rounded-xl shadow-xl border border-stone-200/60 flex items-center justify-between z-20">
               <div>
                 <div class="text-xs sm:text-sm uppercase tracking-wider text-amber-800 font-bold">Signature Favorite</div>
@@ -691,84 +692,76 @@
       if (!container) return;
       var w = container.clientWidth, h = container.clientHeight;
       var scene = new THREE.Scene();
-      var camera = new THREE.PerspectiveCamera(35, w / h, 0.1, 100);
-      camera.position.set(0, 1.2, 7.5);
+      var camera = new THREE.PerspectiveCamera(40, w / h, 0.1, 100);
+      camera.position.set(0, 0, 6);
 
       var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       renderer.setSize(w, h);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.setClearColor(0x000000, 0);
-      renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.0;
       container.appendChild(renderer.domElement);
 
-      var ambient = new THREE.AmbientLight(0xffeedd, 0.6);
+      // Light
+      var ambient = new THREE.AmbientLight(0xffffff, 1.2);
       scene.add(ambient);
-      var key = new THREE.DirectionalLight(0xffd700, 2.0);
-      key.position.set(3, 5, 4);
-      scene.add(key);
-      var fill = new THREE.DirectionalLight(0xffaa66, 0.7);
-      fill.position.set(-2, 0, 3);
-      scene.add(fill);
-      var rim = new THREE.DirectionalLight(0xffffff, 0.5);
-      rim.position.set(0, -2, -4);
-      scene.add(rim);
 
-      // --- JAR (simplified, more stylized) ---
+      // Load product photo as texture
+      var loader = new THREE.TextureLoader();
+      loader.load('Wild%20Raspberry%20%26%20Vanilla.png', function(texture) {
+        var imgAspect = texture.image.width / texture.image.height;
+        var planeW = 3.2;
+        var planeH = planeW / imgAspect;
+
+        var mat = new THREE.MeshBasicMaterial({
+          map: texture,
+          transparent: true,
+          depthWrite: false,
+        });
+        var geo = new THREE.PlaneGeometry(planeW, planeH);
+        var mesh = new THREE.Mesh(geo, mat);
+        mesh.position.z = -0.1;
+        jar.add(mesh);
+      });
+
+      // Jar group (just holds the photo + glow)
       var jar = new THREE.Group();
-
-      var bodyMat = new THREE.MeshPhysicalMaterial({
-        color: 0xf59e0b, metalness: 0.1, roughness: 0.15,
-        clearcoat: 0.8, clearcoatRoughness: 0.15,
-        emissive: 0xb45309, emissiveIntensity: 0.12,
-      });
-      var body = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.3, 2.0, 32), bodyMat);
-      jar.add(body);
-
-      var lidMat = new THREE.MeshPhysicalMaterial({ color: 0x92400e, metalness: 0.5, roughness: 0.3 });
-      var lid = new THREE.Mesh(new THREE.CylinderGeometry(1.15, 1.25, 0.5, 24), lidMat);
-      lid.position.y = 1.25;
-      jar.add(lid);
-
-      var knobMat = new THREE.MeshPhysicalMaterial({ color: 0x78350f, metalness: 0.6, roughness: 0.2 });
-      var knob = new THREE.Mesh(new THREE.SphereGeometry(0.3, 16, 16), knobMat);
-      knob.position.y = 1.65;
-      knob.scale.y = 0.35;
-      jar.add(knob);
-
-      var honeyMat = new THREE.MeshPhysicalMaterial({
-        color: 0xfbbf24, transparent: true, opacity: 0.8,
-        metalness: 0.0, roughness: 0.05,
-        emissive: 0xf59e0b, emissiveIntensity: 0.25,
-      });
-      var honey = new THREE.Mesh(new THREE.CylinderGeometry(1.35, 1.25, 1.5, 24), honeyMat);
-      honey.position.y = -0.05;
-      jar.add(honey);
-
-      var labelMat = new THREE.MeshPhysicalMaterial({ color: 0xfef3c7, roughness: 0.7 });
-      var label = new THREE.Mesh(new THREE.CylinderGeometry(1.53, 1.53, 0.4, 32), labelMat);
-      label.position.y = -0.4;
-      jar.add(label);
-
-      // Ring
-      var ringMat = new THREE.MeshPhysicalMaterial({ color: 0xb45309, metalness: 0.4, roughness: 0.4 });
-      var ring = new THREE.Mesh(new THREE.TorusGeometry(1.45, 0.05, 8, 32), ringMat);
-      ring.position.y = 0.8;
-      ring.rotation.x = Math.PI / 2;
-      jar.add(ring);
-
-      jar.scale.set(1.2, 1.2, 1.2);
-      jar.rotation.x = 0.35;
+      jar.scale.set(1.4, 1.4, 1.4);
+      jar.rotation.x = 0.15;
       scene.add(jar);
 
-      // Circle texture for points (instead of default squares)
+      // Soft glow ring behind photo
+      var glowGeo = new THREE.RingGeometry(1.6, 2.2, 48);
+      var glowMat = new THREE.MeshBasicMaterial({
+        color: 0xfbbf24,
+        transparent: true,
+        opacity: 0.15,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+      });
+      var glow = new THREE.Mesh(glowGeo, glowMat);
+      glow.position.z = -0.3;
+      jar.add(glow);
+
+      // Glow ring 2
+      var glow2Mat = new THREE.MeshBasicMaterial({
+        color: 0xf59e0b,
+        transparent: true,
+        opacity: 0.08,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+      });
+      var glow2 = new THREE.Mesh(new THREE.RingGeometry(2.0, 2.8, 48), glow2Mat);
+      glow2.position.z = -0.35;
+      jar.add(glow2);
+
+      // Circle texture for sparkles
       function makeCircleTexture() {
         var c = document.createElement('canvas');
         c.width = 32; c.height = 32;
         var ctx = c.getContext('2d');
         var gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
         gradient.addColorStop(0, 'rgba(255,255,255,1)');
-        gradient.addColorStop(0.3, 'rgba(255,255,255,0.9)');
+        gradient.addColorStop(0.2, 'rgba(255,255,255,0.9)');
         gradient.addColorStop(1, 'rgba(255,255,255,0)');
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, 32, 32);
@@ -776,71 +769,91 @@
       }
       var circleTexture = makeCircleTexture();
 
-      // --- HONEY SWIRL (spiral particles) ---
-      var swirlCount = 800;
-      var swPos = new Float32Array(swirlCount * 3);
-      var swCol = new Float32Array(swirlCount * 3);
-      var swSize = new Float32Array(swirlCount);
-      var swAngles = new Float32Array(swirlCount);
-      var swRadii = new Float32Array(swirlCount);
-      var swHeights = new Float32Array(swirlCount);
-      for (var i = 0; i < swirlCount; i++) {
-        var t = i / swirlCount;
-        var angle = t * Math.PI * 12;
-        var radius = 0.2 + t * 1.8;
-        var height = (t - 0.5) * 3.0;
-        swPos[i*3] = Math.cos(angle) * radius;
-        swPos[i*3+1] = height;
-        swPos[i*3+2] = Math.sin(angle) * radius;
-        swAngles[i] = angle;
-        swRadii[i] = radius;
-        swHeights[i] = height;
-        swSize[i] = 0.04 + Math.random() * 0.1;
-        var hue = 0.07 + (1 - t) * 0.08;
-        var c = new THREE.Color().setHSL(hue, 0.9, 0.4 + t * 0.3);
-        swCol[i*3] = c.r; swCol[i*3+1] = c.g; swCol[i*3+2] = c.b;
+      // Star texture for sparkles (cross shape)
+      function makeStarTexture() {
+        var c = document.createElement('canvas');
+        c.width = 64; c.height = 64;
+        var ctx = c.getContext('2d');
+        ctx.clearRect(0, 0, 64, 64);
+        var gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+        gradient.addColorStop(0, 'rgba(255,255,255,1)');
+        gradient.addColorStop(0.1, 'rgba(255,255,255,0.8)');
+        gradient.addColorStop(0.5, 'rgba(255,255,255,0.1)');
+        gradient.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, 64, 64);
+        ctx.globalCompositeOperation = 'screen';
+        ctx.fillStyle = 'rgba(255,255,255,0.3)';
+        ctx.fillRect(20, 30, 24, 4);
+        ctx.fillRect(30, 20, 4, 24);
+        return new THREE.CanvasTexture(c);
       }
-      var swGeo = new THREE.BufferGeometry();
-      swGeo.setAttribute('position', new THREE.BufferAttribute(swPos, 3));
-      swGeo.setAttribute('color', new THREE.BufferAttribute(swCol, 3));
-      swGeo.setAttribute('size', new THREE.BufferAttribute(swSize, 1));
-      var swMat = new THREE.PointsMaterial({
-        size: 0.12, vertexColors: true, transparent: true, opacity: 0.85,
-        blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true,
-        map: circleTexture,
-      });
-      var swirl = new THREE.Points(swGeo, swMat);
-      scene.add(swirl);
+      var starTexture = makeStarTexture();
 
-      // Store original positions for animation
-      var origPos = new Float32Array(swPos);
-
-      // --- FLOATING SPARKLE PARTICLES ---
-      var sparkCount = 150;
+      // Sparkle particles around the photo
+      var sparkCount = 60;
       var spPos = new Float32Array(sparkCount * 3);
-      var spCol = new Float32Array(sparkCount * 3);
-      var spSpeed = new Float32Array(sparkCount);
+      var spSizes = new Float32Array(sparkCount);
+      var spPhases = new Float32Array(sparkCount);
+      var spAngles = new Float32Array(sparkCount);
+      var spRadii = new Float32Array(sparkCount);
       for (var i = 0; i < sparkCount; i++) {
-        var r = 1.0 + Math.random() * 2.5;
-        var a = Math.random() * Math.PI * 2;
-        var p = (Math.random() - 0.5) * Math.PI;
-        spPos[i*3] = Math.cos(a) * Math.cos(p) * r;
-        spPos[i*3+1] = Math.sin(p) * r * 0.6;
-        spPos[i*3+2] = Math.sin(a) * Math.cos(p) * r;
-        spSpeed[i] = 0.2 + Math.random() * 0.8;
-        var c = new THREE.Color().setHSL(0.1 + Math.random() * 0.1, 0.5, 0.7 + Math.random() * 0.3);
-        spCol[i*3] = c.r; spCol[i*3+1] = c.g; spCol[i*3+2] = c.b;
+        var angle = Math.random() * Math.PI * 2;
+        var radius = 1.0 + Math.random() * 1.5;
+        spAngles[i] = angle;
+        spRadii[i] = radius;
+        spPos[i*3] = Math.cos(angle) * radius;
+        spPos[i*3+1] = (Math.random() - 0.5) * 2.2;
+        spPos[i*3+2] = (Math.random() - 0.5) * 0.3;
+        spSizes[i] = 0.06 + Math.random() * 0.14;
+        spPhases[i] = Math.random() * Math.PI * 2;
       }
       var spGeo = new THREE.BufferGeometry();
       spGeo.setAttribute('position', new THREE.BufferAttribute(spPos, 3));
-      spGeo.setAttribute('color', new THREE.BufferAttribute(spCol, 3));
+      spGeo.setAttribute('size', new THREE.BufferAttribute(spSizes, 1));
       var spMat = new THREE.PointsMaterial({
-        size: 0.06, vertexColors: true, transparent: true, opacity: 0.6,
-        blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true,
-        map: circleTexture,
+        size: 0.12,
+        map: starTexture,
+        transparent: true,
+        opacity: 0.9,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        sizeAttenuation: true,
+        color: 0xffd700,
       });
-      var sparks = new THREE.Points(spGeo, spMat);
-      scene.add(sparks);
+      var sparkles = new THREE.Points(spGeo, spMat);
+      jar.add(sparkles);
+
+      // Small floating amber dots
+      var dotCount = 120;
+      var dPos = new Float32Array(dotCount * 3);
+      var dSizes = new Float32Array(dotCount);
+      var dPhases = new Float32Array(dotCount);
+      for (var i = 0; i < dotCount; i++) {
+        var radius = 0.8 + Math.random() * 2.5;
+        var theta = Math.random() * Math.PI * 2;
+        var phi = (Math.random() - 0.5) * Math.PI;
+        dPos[i*3] = Math.cos(theta) * Math.cos(phi) * radius;
+        dPos[i*3+1] = Math.sin(phi) * radius * 0.7;
+        dPos[i*3+2] = Math.sin(theta) * Math.cos(phi) * radius - 0.3;
+        dSizes[i] = 0.03 + Math.random() * 0.08;
+        dPhases[i] = Math.random() * Math.PI * 2;
+      }
+      var dGeo = new THREE.BufferGeometry();
+      dGeo.setAttribute('position', new THREE.BufferAttribute(dPos, 3));
+      dGeo.setAttribute('size', new THREE.BufferAttribute(dSizes, 1));
+      var dMat = new THREE.PointsMaterial({
+        size: 0.06,
+        map: circleTexture,
+        transparent: true,
+        opacity: 0.5,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        sizeAttenuation: true,
+        color: 0xfbbf24,
+      });
+      var dots = new THREE.Points(dGeo, dMat);
+      scene.add(dots);
 
       // Mouse tracking
       var mx = 0, my = 0;
@@ -853,38 +866,36 @@
       var time = 0;
       function animate() {
         requestAnimationFrame(animate);
-        time += 0.01;
+        time += 0.02;
 
-        // Jar: smooth rotation + gentle float
-        jar.rotation.y += 0.015;
-        jar.position.x += (mx * 0.2 - jar.position.x) * 0.03;
-        jar.position.y = 0.2 + Math.sin(time * 0.8) * 0.08;
-        jar.position.x += (-my * 0.12) * 0.03;
+        // Jar floats gently + follows mouse
+        jar.position.x += (mx * 0.15 - jar.position.x) * 0.03;
+        jar.position.y = Math.sin(time * 0.6) * 0.06;
+        jar.rotation.y += 0.005;
+        jar.rotation.z = Math.sin(time * 0.4) * 0.02;
 
-        // Swirl: rotate and undulate
-        var posAttr = swGeo.attributes.position;
-        var arr = posAttr.array;
-        for (var i = 0; i < swirlCount; i++) {
-          var angle = swAngles[i] + time * (0.6 + swRadii[i] * 0.15);
-          var r = swRadii[i] + Math.sin(time * 1.2 + i * 0.05) * 0.08;
-          var hOff = Math.sin(time * 0.5 + i * 0.02) * 0.1;
-          arr[i*3] = Math.cos(angle) * r;
-          arr[i*3+1] = swHeights[i] + hOff;
-          arr[i*3+2] = Math.sin(angle) * r;
-        }
-        posAttr.needsUpdate = true;
-
-        // Rotate swirl group
-        swirl.rotation.y += 0.003;
-
-        // Sparks: slow drift
+        // Animate sparkle positions (twinkle)
         var spPosAttr = spGeo.attributes.position;
         var spArr = spPosAttr.array;
         for (var i = 0; i < sparkCount; i++) {
-          spArr[i*3+1] += Math.sin(time * spSpeed[i] + i) * 0.0008;
+          var a = spAngles[i] + time * (0.3 + spRadii[i] * 0.05);
+          var r = spRadii[i] + Math.sin(time * 1.5 + spPhases[i]) * 0.08;
+          spArr[i*3] = Math.cos(a) * r;
+          spArr[i*3+1] = Math.sin(time * 0.8 + spPhases[i]) * 1.1;
         }
         spPosAttr.needsUpdate = true;
-        sparks.rotation.y += 0.0005;
+
+        // Twinkle opacity
+        spMat.opacity = 0.6 + Math.sin(time * 2) * 0.3;
+
+        // Animate dots
+        var dPosAttr = dGeo.attributes.position;
+        var dArr = dPosAttr.array;
+        for (var i = 0; i < dotCount; i++) {
+          dArr[i*3+1] += Math.sin(time * dPhases[i] + i) * 0.0006;
+        }
+        dPosAttr.needsUpdate = true;
+        dots.rotation.y += 0.001;
 
         renderer.render(scene, camera);
       }
