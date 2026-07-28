@@ -14,6 +14,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -224,6 +227,38 @@
       to { opacity: 1; transform: translateY(0); }
     }
     .reveal { animation: fadeInUp 0.6s ease forwards; }
+
+    .tilt-card {
+      perspective: 1200px;
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease;
+    }
+    .tilt-card-inner {
+      transform-style: preserve-3d;
+      transition: transform 0.3s ease;
+    }
+    .tilt-card:hover .tilt-card-inner {
+      transform: rotateX(var(--rotX, 0deg)) rotateY(var(--rotY, 0deg));
+    }
+    .tilt-card .tilt-card-inner > * {
+      transform: translateZ(20px);
+    }
+
+    #three-hero {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      border-radius: 1.5rem;
+      overflow: hidden;
+    }
+    #three-hero canvas { border-radius: 1.5rem; }
+
+    .parallax-layer {
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
   </style>
 </head>
 <body>
@@ -309,8 +344,7 @@
       <div class="lg:col-span-5 relative">
         <div class="relative mx-auto max-w-md lg:max-w-none">
           <div class="relative bg-gradient-to-b from-amber-100 to-amber-50/50 p-6 sm:p-8 rounded-3xl border border-amber-200/60 shadow-2xl overflow-hidden">
-            <div class="absolute top-0 right-0 w-40 h-40 bg-amber-300/40 rounded-full blur-2xl pointer-events-none"></div>
-            <img src="https://images.unsplash.com/photo-1587049352851-8d4e89133924?auto=format&fit=crop&q=80&w=800" alt="Demilie Raspberry Creamed Honey Jar" class="w-full h-80 sm:h-96 object-cover rounded-2xl shadow-md relative z-10">
+            <div id="three-hero"></div>
             <div class="absolute bottom-10 left-10 right-10 bg-white/95 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-stone-200/60 flex items-center justify-between z-20">
               <div>
                 <div class="text-xs uppercase tracking-wider text-amber-800 font-semibold">Signature Favorite</div>
@@ -521,7 +555,7 @@
 
     const FEATURES = [
       { icon: 'fa-droplet', title: 'Zero Drips, Pure Silk', description: 'Controlled cold-crystallization creates a thick, buttery texture that stays smoothly on your knife without liquid mess.' },
-      { icon: 'fa-leaf', title: '100% Whole Real Fruit', description: 'We freeze-dry peak-harvest organic berries and fruits, locking in natural antioxidants, bright flavors, and vivid colors.' },
+      { icon: 'fa-leaf', title: '100% Whole Real Fruit', description: 'We freeze-dry peak-harvest organic berries and fruits, locking in natural antioxidants, bright colors, and vivid colors.' },
       { icon: 'fa-shield', title: 'Raw & Unpasteurized', description: 'Never heated above natural hive temperatures, preserving all beneficial honey enzymes, pollen, and propolis intact.' },
       { icon: 'fa-sparkles', title: 'Artisanal Whipping Process', description: 'Batch-whipped over 72 slow hours using traditional European methods for an effortlessly smooth mouthfeel.' }
     ];
@@ -558,29 +592,31 @@
     function renderProducts(filter) {
       const filtered = filter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === filter);
       productGrid.innerHTML = filtered.map(p => `
-        <div class="product-card flex flex-col justify-between relative">
-          <div>
-            <div class="product-img-wrap" style="background: linear-gradient(135deg, ${p.bgGradient});">
-              <span class="badge">${p.badge}</span>
-              <button class="wishlist-btn" aria-label="Add to wishlist"><i class="fa-regular fa-heart"></i></button>
-              <img src="${p.image}" alt="${p.name}" loading="lazy">
-            </div>
-            <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-2">
-              <div class="flex text-amber-500 gap-0.5"><i class="fa-solid fa-star"></i></div>
-              <span class="font-bold text-stone-800">${p.rating}</span>
-              <span>(${p.reviews})</span>
-              <span class="text-stone-300">•</span>
-              <span>${p.weight}</span>
-            </div>
-            <h3 class="font-serif text-lg font-bold text-stone-900 hover:text-amber-800 transition-colors line-clamp-1">${p.name}</h3>
-            <p class="text-stone-600 text-xs leading-relaxed mt-2 line-clamp-2">${p.description}</p>
-          </div>
-          <div class="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between">
+        <div class="product-card tilt-card flex flex-col justify-between relative">
+          <div class="tilt-card-inner">
             <div>
-              <span class="text-xs text-stone-400 block">Price</span>
-              <span class="font-serif text-xl font-bold text-stone-900">Rs. ${p.price.toLocaleString()}</span>
+              <div class="product-img-wrap" style="background: linear-gradient(135deg, ${p.bgGradient});">
+                <span class="badge">${p.badge}</span>
+                <button class="wishlist-btn" aria-label="Add to wishlist"><i class="fa-regular fa-heart"></i></button>
+                <img src="${p.image}" alt="${p.name}" loading="lazy">
+              </div>
+              <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-2">
+                <div class="flex text-amber-500 gap-0.5"><i class="fa-solid fa-star"></i></div>
+                <span class="font-bold text-stone-800">${p.rating}</span>
+                <span>(${p.reviews})</span>
+                <span class="text-stone-300">•</span>
+                <span>${p.weight}</span>
+              </div>
+              <h3 class="font-serif text-lg font-bold text-stone-900 hover:text-amber-800 transition-colors line-clamp-1">${p.name}</h3>
+              <p class="text-stone-600 text-xs leading-relaxed mt-2 line-clamp-2">${p.description}</p>
             </div>
-            <button class="cart-btn" onclick="addToCart()" title="Add to Cart"><i class="fa-solid fa-plus"></i></button>
+            <div class="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between">
+              <div>
+                <span class="text-xs text-stone-400 block">Price</span>
+                <span class="font-serif text-xl font-bold text-stone-900">Rs. ${p.price.toLocaleString()}</span>
+              </div>
+              <button class="cart-btn" onclick="addToCart()" title="Add to Cart"><i class="fa-solid fa-plus"></i></button>
+            </div>
           </div>
         </div>
       `).join('');
@@ -631,6 +667,195 @@
       cartBadge.style.animation = 'fadeInUp 0.3s ease';
     }
 
+    // --- 3D TILT ON PRODUCT CARDS ---
+    document.addEventListener('mousemove', function(e) {
+      document.querySelectorAll('.tilt-card').forEach(function(card) {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotY = ((x - centerX) / centerX) * 8;
+        const rotX = ((centerY - y) / centerY) * 8;
+        card.style.setProperty('--rotX', rotX + 'deg');
+        card.style.setProperty('--rotY', rotY + 'deg');
+      });
+    });
+
+    // --- THREE.JS HERO SCENE ---
+    (function initHeroScene() {
+      const container = document.getElementById('three-hero');
+      if (!container) return;
+
+      const w = container.clientWidth;
+      const h = container.clientHeight;
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
+      camera.position.set(0, 0, 8);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(w, h);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setClearColor(0x000000, 0);
+      container.appendChild(renderer.domElement);
+
+      // Ambient + directional light
+      const ambient = new THREE.AmbientLight(0xffeedd, 0.6);
+      scene.add(ambient);
+      const dir = new THREE.DirectionalLight(0xffd700, 1.2);
+      dir.position.set(3, 5, 4);
+      scene.add(dir);
+      const back = new THREE.DirectionalLight(0xffaa66, 0.5);
+      back.position.set(-2, -1, -3);
+      scene.add(back);
+
+      // Main honey jar shape: a group
+      const jar = new THREE.Group();
+
+      // Body - round cylinder (jar)
+      const bodyGeo = new THREE.CylinderGeometry(1.6, 1.4, 2.2, 32);
+      const bodyMat = new THREE.MeshPhysicalMaterial({
+        color: 0xf59e0b,
+        metalness: 0.1,
+        roughness: 0.25,
+        clearcoat: 0.4,
+        clearcoatRoughness: 0.3,
+        emissive: 0xb45309,
+        emissiveIntensity: 0.08,
+      });
+      const body = new THREE.Mesh(bodyGeo, bodyMat);
+      body.position.y = 0;
+      jar.add(body);
+
+      // Lid
+      const lidGeo = new THREE.CylinderGeometry(1.2, 1.3, 0.5, 24);
+      const lidMat = new THREE.MeshPhysicalMaterial({
+        color: 0x92400e,
+        metalness: 0.3,
+        roughness: 0.5,
+      });
+      const lid = new THREE.Mesh(lidGeo, lidMat);
+      lid.position.y = 1.35;
+      jar.add(lid);
+
+      // Lid knob
+      const knobGeo = new THREE.SphereGeometry(0.25, 16, 16);
+      const knobMat = new THREE.MeshPhysicalMaterial({ color: 0x78350f, metalness: 0.4, roughness: 0.4 });
+      const knob = new THREE.Mesh(knobGeo, knobMat);
+      knob.position.y = 1.7;
+      jar.add(knob);
+
+      // Honey inside (visible through top)
+      const honeyGeo = new THREE.CylinderGeometry(1.4, 1.3, 1.6, 24);
+      const honeyMat = new THREE.MeshPhysicalMaterial({
+        color: 0xfbbf24,
+        transparent: true,
+        opacity: 0.7,
+        metalness: 0.0,
+        roughness: 0.1,
+        emissive: 0xf59e0b,
+        emissiveIntensity: 0.15,
+      });
+      const honey = new THREE.Mesh(honeyGeo, honeyMat);
+      honey.position.y = -0.1;
+      jar.add(honey);
+
+      // Label ring
+      const labelGeo = new THREE.CylinderGeometry(1.62, 1.62, 0.4, 32);
+      const labelMat = new THREE.MeshPhysicalMaterial({ color: 0xfef3c7, metalness: 0.0, roughness: 0.8 });
+      const label = new THREE.Mesh(labelGeo, labelMat);
+      label.position.y = -0.5;
+      jar.add(label);
+
+      jar.rotation.x = 0.15;
+      scene.add(jar);
+
+      // Floating particles (berries / honey droplets)
+      const particlesCount = 120;
+      const posArray = new Float32Array(particlesCount * 3);
+      const sizeArray = new Float32Array(particlesCount);
+      const colorArray = new Float32Array(particlesCount * 3);
+      for (let i = 0; i < particlesCount; i++) {
+        const radius = 2.5 + Math.random() * 3;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.random() * Math.PI - Math.PI / 2;
+        posArray[i * 3] = Math.cos(theta) * Math.cos(phi) * radius;
+        posArray[i * 3 + 1] = Math.sin(phi) * radius * 0.6;
+        posArray[i * 3 + 2] = Math.sin(theta) * Math.cos(phi) * radius;
+        sizeArray[i] = 0.04 + Math.random() * 0.1;
+        const hue = 0.08 + Math.random() * 0.12;
+        const c = new THREE.Color().setHSL(hue, 0.7 + Math.random() * 0.3, 0.5 + Math.random() * 0.4);
+        colorArray[i * 3] = c.r;
+        colorArray[i * 3 + 1] = c.g;
+        colorArray[i * 3 + 2] = c.b;
+      }
+      const particleGeo = new THREE.BufferGeometry();
+      particleGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+      particleGeo.setAttribute('size', new THREE.BufferAttribute(sizeArray, 1));
+      particleGeo.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
+      const particleMat = new THREE.PointsMaterial({
+        size: 0.12,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.8,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      });
+      const particles = new THREE.Points(particleGeo, particleMat);
+      scene.add(particles);
+
+      // Mouse tracking for parallax
+      let mouseX = 0, mouseY = 0;
+      document.addEventListener('mousemove', function(e) {
+        const rect = container.getBoundingClientRect();
+        mouseX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+        mouseY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+      });
+
+      // Animation loop
+      function animate() {
+        requestAnimationFrame(animate);
+        jar.rotation.y += 0.008;
+        jar.position.x += (mouseX * 0.3 - jar.position.x) * 0.03;
+        jar.position.y += (-mouseY * 0.2 - jar.position.y) * 0.03;
+        particles.rotation.y += 0.002;
+        particles.rotation.x += 0.0005;
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      // Resize
+      function onResize() {
+        const w2 = container.clientWidth;
+        const h2 = container.clientHeight;
+        camera.aspect = w2 / h2;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w2, h2);
+      }
+      window.addEventListener('resize', onResize);
+    })();
+
+    // --- SCROLL PARALLAX ON FEATURE CARDS ---
+    gsap.registerPlugin(ScrollTrigger);
+    document.querySelectorAll('.feature-card, .step-card, .testimonial-card').forEach(function(el) {
+      el.classList.add('parallax-layer');
+    });
+    document.querySelectorAll('.parallax-layer').forEach(function(el) {
+      gsap.fromTo(el,
+        { y: 60, opacity: 0 },
+        {
+          y: 0, opacity: 1,
+          duration: 0.8,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    });
+
     // --- EVENT LISTENERS ---
     document.getElementById('filterGroup').addEventListener('click', function(e) {
       const btn = e.target.closest('.filter-pill');
@@ -647,7 +872,7 @@
       menuIcon.className = mobileOpen ? 'fa-solid fa-xmark text-xl' : 'fa-solid fa-bars text-xl';
     });
 
-    document.querySelectorAll('.mobile-link').forEach(link => {
+    document.querySelectorAll('.mobile-link').forEach(function(link) {
       link.addEventListener('click', function() {
         mobileOpen = false;
         mobileNav.classList.remove('open');
@@ -660,7 +885,6 @@
       header.classList.toggle('header-scrolled', window.scrollY > 40);
     });
 
-    // cart button ripple effect
     document.getElementById('cartBtn').addEventListener('click', addToCart);
 
     // --- INIT ---
