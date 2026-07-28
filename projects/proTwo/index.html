@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demilie — Creamed Honey</title>
+  <meta name="description" content="Whipped to perfection. Infused by nature. Artisanal creamed honey with real fruit infusions.">
+  <meta property="og:title" content="Demilie — Creamed Honey">
+  <meta property="og:description" content="Whipped to perfection. Infused by nature. Artisanal creamed honey with real fruit infusions.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Playfair Display', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #FAF8F5; color: #1c1917; }
+    ::selection { background: #fde68a; color: #78350f; }
+
+    .announcement-bar {
+      background: #1c1917;
+      color: #e7e5e4;
+      font-size: 0.75rem;
+      padding: 0.5rem 1rem;
+      text-align: center;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .header-scrolled {
+      background: rgba(250, 248, 245, 0.92);
+      backdrop-filter: blur(12px);
+    }
+
+    .btn-primary {
+      background: #1c1917;
+      color: #fafaf9;
+      border-radius: 9999px;
+      padding: 0.75rem 2rem;
+      font-weight: 500;
+      transition: background 0.3s ease, transform 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-primary:hover { background: #b45309; transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.8);
+      border: 1px solid #d6d3d1;
+      color: #1c1917;
+      border-radius: 9999px;
+      padding: 0.75rem 2rem;
+      font-weight: 500;
+      transition: background 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-secondary:hover { background: #f5f5f4; }
+
+    .product-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.25rem;
+      border: 1px solid rgba(214, 211, 209, 0.8);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .product-card:hover {
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      transform: translateY(-4px);
+    }
+
+    .product-img-wrap {
+      position: relative;
+      height: 16rem;
+      border-radius: 1rem;
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+    }
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .product-card:hover .product-img-wrap img { transform: scale(1.05); }
+
+    .badge {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      color: #1c1917;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      z-index: 2;
+    }
+
+    .wishlist-btn {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      padding: 0.5rem;
+      border-radius: 9999px;
+      background: rgba(255,255,255,0.8);
+      color: #57534e;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      z-index: 2;
+      line-height: 1;
+    }
+    .wishlist-btn:hover { background: white; color: #e11d48; }
+
+    .cart-btn {
+      background: #1c1917;
+      color: white;
+      border-radius: 9999px;
+      padding: 0.75rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .cart-btn:hover { background: #b45309; }
+
+    .filter-pill {
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: capitalize;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-pill.active { background: #1c1917; color: white; }
+    .filter-pill:not(.active) { background: rgba(214, 211, 209, 0.7); color: #44403c; }
+    .filter-pill:not(.active):hover { background: #d6d3d1; }
+
+    .feature-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      border: 1px solid rgba(214, 211, 209, 0.6);
+      transition: box-shadow 0.3s ease;
+    }
+    .feature-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+
+    .icon-box {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 1rem;
+      background: #fffbeb;
+      border: 1px solid rgba(253, 230, 138, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      border: 1px solid rgba(214, 211, 209, 0.8);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .step-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 2rem 1.5rem;
+      border: 1px solid rgba(214, 211, 209, 0.8);
+      text-align: center;
+    }
+
+    .newsletter-section {
+      background: linear-gradient(135deg, #fef3c7, #fffbeb, #f5f5f4);
+      border-radius: 1.5rem;
+      padding: 2rem 1.5rem;
+      border: 1px solid rgba(253, 230, 138, 0.8);
+      text-align: center;
+    }
+
+    @media (min-width: 640px) {
+      .newsletter-section { padding: 4rem; }
+    }
+
+    .mobile-nav { display: none; }
+    .mobile-nav.open { display: block; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { animation: fadeInUp 0.6s ease forwards; }
+  </style>
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announcement-bar">
+    <i class="fa-solid fa-sparkles text-amber-400"></i>
+    <span>Complimentary Express Shipping on Orders Over $50</span>
+    <span class="hidden sm:inline opacity-60">| Code: PUREGOLD</span>
+  </div>
+
+  <!-- NAVIGATION -->
+  <header class="sticky top-0 z-40 transition-all duration-300" id="header">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2 group">
+        <span class="font-serif text-3xl font-extrabold tracking-tight text-stone-900 group-hover:text-amber-700 transition-colors">DEMILIE</span>
+        <span class="text-[10px] uppercase tracking-widest bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded-full border border-amber-300">Creamed</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-stone-700">
+        <a href="#shop" class="hover:text-amber-700 transition-colors">Shop Flavors</a>
+        <a href="#about" class="hover:text-amber-700 transition-colors">Our Process</a>
+        <a href="#benefits" class="hover:text-amber-700 transition-colors">Why Creamed?</a>
+        <a href="#gifting" class="hover:text-amber-700 transition-colors">Gift Sets</a>
+        <a href="#reviews" class="hover:text-amber-700 transition-colors">Reviews</a>
+      </nav>
+      <div class="flex items-center gap-4">
+        <button aria-label="Shopping Cart" class="relative p-2.5 rounded-full bg-stone-100 hover:bg-amber-100 text-stone-800 transition-colors" id="cartBtn">
+          <i class="fa-solid fa-bag-shopping text-lg"></i>
+          <span class="absolute -top-1 -right-1 bg-amber-600 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#FAF8F5]" id="cartBadge">2</span>
+        </button>
+        <button class="md:hidden p-2 text-stone-800 hover:text-amber-700" id="menuToggle" aria-label="Toggle menu">
+          <i class="fa-solid fa-bars text-xl" id="menuIcon"></i>
+        </button>
+      </div>
+    </div>
+    <div class="md:hidden border-b border-stone-200 bg-[#FAF8F5] px-6 py-6 space-y-4 mobile-nav" id="mobileNav">
+      <a href="#shop" class="block text-lg font-medium text-stone-800 hover:text-amber-700 mobile-link">Shop Flavors</a>
+      <a href="#about" class="block text-lg font-medium text-stone-800 hover:text-amber-700 mobile-link">Our Process</a>
+      <a href="#benefits" class="block text-lg font-medium text-stone-800 hover:text-amber-700 mobile-link">Why Creamed?</a>
+      <a href="#gifting" class="block text-lg font-medium text-stone-800 hover:text-amber-700 mobile-link">Gift Sets</a>
+      <a href="#reviews" class="block text-lg font-medium text-stone-800 hover:text-amber-700 mobile-link">Reviews</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-32">
+    <div class="absolute top-12 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-amber-200/30 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute top-48 right-10 w-72 h-72 bg-rose-200/30 rounded-full blur-2xl pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-100/80 border border-amber-300 text-amber-900 text-xs font-semibold uppercase tracking-wider">
+          <i class="fa-solid fa-sparkles text-amber-600"></i>
+          100% Natural Raw Honey
+        </div>
+        <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold text-stone-900 leading-[1.1] tracking-tight">
+          Whipped to perfection. <br>
+          <span class="text-amber-800 italic font-normal">Infused by nature.</span>
+        </h1>
+        <p class="text-lg sm:text-xl text-stone-600 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
+          Experience honey reinvented. Silky, spreadable raw wildflower honey cold-whipped with 100% organic freeze-dried fruits and botanicals. Never drips, forever delicious.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+          <a href="#shop" class="btn-primary">
+            Explore All Flavors
+            <i class="fa-solid fa-chevron-right group-hover:translate-x-1 transition-transform"></i>
+          </a>
+          <a href="#about" class="btn-secondary">Discover the Craft</a>
+        </div>
+        <div class="pt-6 border-t border-stone-200/80 flex items-center justify-center lg:justify-start gap-8 text-stone-600 text-xs font-medium">
+          <div class="flex items-center gap-1.5">
+            <div class="flex text-amber-500 gap-0.5">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <span class="text-stone-900 font-bold">4.9/5.0</span>
+            <span>(1,400+ reviews)</span>
+          </div>
+          <div class="hidden sm:flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            Non-GMO & Gluten Free
+          </div>
+        </div>
+      </div>
+      <div class="lg:col-span-5 relative">
+        <div class="relative mx-auto max-w-md lg:max-w-none">
+          <div class="relative bg-gradient-to-b from-amber-100 to-amber-50/50 p-6 sm:p-8 rounded-3xl border border-amber-200/60 shadow-2xl overflow-hidden">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-amber-300/40 rounded-full blur-2xl pointer-events-none"></div>
+            <img src="https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&q=80&w=800" alt="Demilie Raspberry Creamed Honey Jar" class="w-full h-80 sm:h-96 object-cover rounded-2xl shadow-md relative z-10">
+            <div class="absolute bottom-10 left-10 right-10 bg-white/95 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-stone-200/60 flex items-center justify-between z-20">
+              <div>
+                <div class="text-xs uppercase tracking-wider text-amber-800 font-semibold">Signature Favorite</div>
+                <div class="text-sm font-bold text-stone-900">Wild Raspberry & Vanilla</div>
+              </div>
+              <span class="text-amber-900 font-bold bg-amber-100 px-3 py-1 rounded-full text-sm">$18.50</span>
+            </div>
+          </div>
+          <div class="absolute -top-4 -left-4 bg-stone-900 text-white p-3 rounded-2xl shadow-xl hidden sm:flex items-center gap-2 text-xs font-semibold">
+            <i class="fa-solid fa-droplet text-amber-400"></i>
+            Velvety Texture
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK BENEFIT BANNER -->
+  <section class="bg-stone-900 text-stone-100 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div class="space-y-1">
+          <div class="font-serif text-2xl sm:text-3xl font-bold text-amber-400">100%</div>
+          <div class="text-xs uppercase tracking-widest text-stone-400">Raw Wildflower Honey</div>
+        </div>
+        <div class="space-y-1">
+          <div class="font-serif text-2xl sm:text-3xl font-bold text-amber-400">0%</div>
+          <div class="text-xs uppercase tracking-widest text-stone-400">Added Sugar or Syrups</div>
+        </div>
+        <div class="space-y-1">
+          <div class="font-serif text-2xl sm:text-3xl font-bold text-amber-400">72 Hrs</div>
+          <div class="text-xs uppercase tracking-widest text-stone-400">Cold-Whipped Craft</div>
+        </div>
+        <div class="space-y-1">
+          <div class="font-serif text-2xl sm:text-3xl font-bold text-amber-400">12+</div>
+          <div class="text-xs uppercase tracking-widest text-stone-400">Gourmet Infusions</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT CATALOG -->
+  <section id="shop" class="py-20 lg:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+      <div>
+        <span class="text-xs uppercase tracking-widest text-amber-800 font-bold">The Collection</span>
+        <h2 class="font-serif text-3xl sm:text-5xl font-bold text-stone-900 mt-2">Explore Artisanal Infusions</h2>
+      </div>
+      <div class="flex flex-wrap gap-2" id="filterGroup">
+        <button class="filter-pill active" data-filter="all">All Flavors</button>
+        <button class="filter-pill" data-filter="fruit">Fruit</button>
+        <button class="filter-pill" data-filter="nut">Nut</button>
+        <button class="filter-pill" data-filter="classic">Classic</button>
+      </div>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8" id="productGrid">
+    </div>
+  </section>
+
+  <!-- WHY CREAMED HONEY -->
+  <section id="about" class="py-20 bg-stone-100/70 border-y border-stone-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center mb-16 space-y-4">
+        <span class="text-xs uppercase tracking-widest text-amber-800 font-bold">The Craftsmanship</span>
+        <h2 class="font-serif text-3xl sm:text-5xl font-bold text-stone-900">Why Creamed Honey is Superior</h2>
+        <p class="text-stone-600 text-base sm:text-lg">Liquid honey crystallizes unevenly into gritty chunks over time. We guide the natural crystallization process under cold temperatures to create ultra-fine micro-crystals.</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8" id="featuresGrid">
+      </div>
+      <div class="mt-16 bg-white rounded-3xl p-8 sm:p-12 border border-stone-200/80 grid md:grid-cols-3 gap-8 text-center relative overflow-hidden">
+        <div class="space-y-3">
+          <span class="text-xs font-bold uppercase tracking-widest text-amber-700 bg-amber-100 px-3 py-1 rounded-full">Step 01</span>
+          <h4 class="font-serif text-xl font-bold">Pure Raw Harvesting</h4>
+          <p class="text-stone-600 text-xs sm:text-sm">Sourced directly from sustainable ethical apiaries away from industrial pesticide zones.</p>
+        </div>
+        <div class="space-y-3">
+          <span class="text-xs font-bold uppercase tracking-widest text-amber-700 bg-amber-100 px-3 py-1 rounded-full">Step 02</span>
+          <h4 class="font-serif text-xl font-bold">72-Hour Cold Whip</h4>
+          <p class="text-stone-600 text-xs sm:text-sm">Slow mechanical churning controlled at 57°F to foster uniform microscopic seed crystals.</p>
+        </div>
+        <div class="space-y-3">
+          <span class="text-xs font-bold uppercase tracking-widest text-amber-700 bg-amber-100 px-3 py-1 rounded-full">Step 03</span>
+          <h4 class="font-serif text-xl font-bold">Organic Botanical Blend</h4>
+          <p class="text-stone-600 text-xs sm:text-sm">Freeze-dried berries and natural spices folded in right before small-batch hand filling.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section id="benefits" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+      <span class="text-xs uppercase tracking-widest text-amber-800 font-bold">The Difference</span>
+      <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900">What Makes Demilie Special</h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8" id="benefitsGrid">
+    </div>
+  </section>
+
+  <!-- GIFT SET -->
+  <section id="gifting" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-stone-900 text-white rounded-3xl p-8 sm:p-12 lg:p-16 relative overflow-hidden grid lg:grid-cols-12 gap-8 items-center shadow-2xl">
+      <div class="lg:col-span-7 space-y-6 z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-bold uppercase tracking-wider">
+          <i class="fa-solid fa-gift"></i>
+          Luxury Presentation Box
+        </div>
+        <h2 class="font-serif text-3xl sm:text-5xl font-bold text-stone-100 leading-tight">Give the Gift of Pure Taste</h2>
+        <p class="text-stone-300 text-base sm:text-lg max-w-xl font-light">Our signature Tasting Gift Sets come beautifully packaged in geometric embossed rigid boxes. Includes 4 mini jars of our bestselling infusions plus a handcrafted wooden honey wand.</p>
+        <ul class="space-y-2 text-xs sm:text-sm text-stone-300">
+          <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-amber-400"></i> Includes custom handwritten gift note card</li>
+          <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-amber-400"></i> Ideal for corporate gifting, weddings, or holiday hosts</li>
+        </ul>
+        <div class="pt-4 flex flex-col sm:flex-row gap-4">
+          <button class="px-8 py-4 bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold rounded-full transition-colors flex items-center justify-center gap-2 cursor-pointer">
+            Build Your Gift Box ($48.00)
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+      <div class="lg:col-span-5 z-10">
+        <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=800" alt="Demilie Honey Gift Box" class="rounded-2xl shadow-2xl border border-stone-800 object-cover w-full h-80 lg:h-96">
+      </div>
+      <div class="absolute -bottom-20 -right-20 w-96 h-96 bg-amber-600/20 rounded-full blur-3xl pointer-events-none"></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="reviews" class="py-20 bg-amber-50/50 border-t border-amber-200/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <span class="text-xs uppercase tracking-widest text-amber-800 font-bold">Community Love</span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900">Loved by Foodies & Chefs</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8" id="reviewGrid">
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="newsletter-section space-y-6 relative overflow-hidden">
+      <span class="text-xs uppercase tracking-widest text-amber-900 font-bold bg-amber-200/80 px-3 py-1 rounded-full inline-block">Join The Hive</span>
+      <h2 class="font-serif text-3xl sm:text-5xl font-bold text-stone-900 max-w-2xl mx-auto">Get 15% Off Your First Creamed Honey Order</h2>
+      <p class="text-stone-600 max-w-md mx-auto text-xs sm:text-sm">Subscribe for seasonal flavor drops, chef recipe pairings, and VIP early access to limited batch releases.</p>
+      <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-3" onsubmit="event.preventDefault();">
+        <input type="email" placeholder="Enter your email address" class="flex-1 px-5 py-3.5 rounded-full border border-stone-300 text-sm focus:outline-none focus:ring-2 focus:ring-amber-600 bg-white" required>
+        <button type="submit" class="px-7 py-3.5 bg-stone-900 hover:bg-amber-800 text-white font-medium text-sm rounded-full transition-colors shadow-md cursor-pointer">Subscribe</button>
+      </form>
+      <p class="text-[11px] text-stone-400">No spam, ever. Unsubscribe anytime with one click.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-stone-900 text-stone-400 text-xs py-16 border-t border-stone-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+      <div class="col-span-2 space-y-4">
+        <a href="#" class="font-serif text-2xl font-bold text-white tracking-tight">DEMILIE</a>
+        <p class="text-stone-400 max-w-sm leading-relaxed">Crafting cold-whipped artisanal creamed honey infused with organic botanicals. Sourced sustainably, whipped with passion.</p>
+        <div class="text-stone-500">&copy; 2026 Demilie Honey Inc. All rights reserved.</div>
+      </div>
+      <div class="space-y-3">
+        <div class="font-semibold text-white uppercase tracking-wider text-[11px]">Shop</div>
+        <ul class="space-y-2">
+          <li><a href="#shop" class="hover:text-amber-400 transition-colors">All Flavors</a></li>
+          <li><a href="#shop" class="hover:text-amber-400 transition-colors">Berry Infusions</a></li>
+          <li><a href="#gifting" class="hover:text-amber-400 transition-colors">Gift Sets</a></li>
+          <li><a href="#" class="hover:text-amber-400 transition-colors">Wholesale & B2B</a></li>
+        </ul>
+      </div>
+      <div class="space-y-3">
+        <div class="font-semibold text-white uppercase tracking-wider text-[11px]">Learn</div>
+        <ul class="space-y-2">
+          <li><a href="#about" class="hover:text-amber-400 transition-colors">Our Process</a></li>
+          <li><a href="#benefits" class="hover:text-amber-400 transition-colors">What is Creamed Honey?</a></li>
+          <li><a href="#" class="hover:text-amber-400 transition-colors">Bee Sustainability</a></li>
+          <li><a href="#" class="hover:text-amber-400 transition-colors">Recipes & Ideas</a></li>
+        </ul>
+      </div>
+      <div class="space-y-3">
+        <div class="font-semibold text-white uppercase tracking-wider text-[11px]">Help</div>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:text-amber-400 transition-colors">Shipping & Returns</a></li>
+          <li><a href="#" class="hover:text-amber-400 transition-colors">Track Your Order</a></li>
+          <li><a href="#" class="hover:text-amber-400 transition-colors">FAQs</a></li>
+          <li><a href="#" class="hover:text-amber-400 transition-colors">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 border-t border-stone-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-stone-500">
+      <div>Made with care for natural honey lovers worldwide.</div>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-stone-300">Privacy Policy</a>
+        <a href="#" class="hover:text-stone-300">Terms of Service</a>
+        <a href="#" class="hover:text-stone-300">Accessibility</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // --- DATA ---
+    const PRODUCTS = [
+      { id: 'raspberry-vanilla', name: 'Wild Raspberry & Madagascar Vanilla', price: 18.50, weight: '250g / 8.8 oz', rating: 4.9, reviews: 128, badge: 'Bestseller', category: 'fruit', bgGradient: 'from-rose-500/10 to-pink-500/20', description: 'Silky creamed clover honey infused with freeze-dried organic raspberries and real vanilla bean dots.', image: 'https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&q=80&w=600' },
+      { id: 'pistachio-cardamom', name: 'Sicilian Pistachio & Cardamom', price: 21.00, weight: '250g / 8.8 oz', rating: 4.8, reviews: 94, badge: 'Limited Edition', category: 'nut', bgGradient: 'from-emerald-500/10 to-teal-500/20', description: 'Ground Bronte pistachios blended with subtle green cardamom for a nutty, aromatic finish.', image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=600' },
+      { id: 'mango-passionfruit', name: 'Alphonso Mango & Passionfruit', price: 19.00, weight: '250g / 8.8 oz', rating: 5.0, reviews: 76, badge: 'Trending', category: 'fruit', bgGradient: 'from-amber-500/10 to-orange-500/20', description: 'Tropical sweetness balanced by crisp passionfruit tartness. Electric color and vibrant taste.', image: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&fit=crop&q=80&w=600' },
+      { id: 'pure-golden', name: 'Pure Velvet Wildflower', price: 16.00, weight: '250g / 8.8 oz', rating: 4.9, reviews: 210, badge: 'Classic', category: 'classic', bgGradient: 'from-yellow-500/10 to-amber-500/20', description: 'Single-origin wildflower raw honey whipped slowly to achieve a butter-soft spreadable texture.', image: 'https://images.unsplash.com/photo-1587049352851-8d4e89133924?auto=format&fit=crop&q=80&w=600' }
+    ];
+
+    const FEATURES = [
+      { icon: 'fa-droplet', title: 'Zero Drips, Pure Silk', description: 'Controlled cold-crystallization creates a thick, buttery texture that stays smoothly on your knife without liquid mess.' },
+      { icon: 'fa-leaf', title: '100% Whole Real Fruit', description: 'We freeze-dry peak-harvest organic berries and fruits, locking in natural antioxidants, bright flavors, and vivid colors.' },
+      { icon: 'fa-shield', title: 'Raw & Unpasteurized', description: 'Never heated above natural hive temperatures, preserving all beneficial honey enzymes, pollen, and propolis intact.' },
+      { icon: 'fa-sparkles', title: 'Artisanal Whipping Process', description: 'Batch-whipped over 72 slow hours using traditional European methods for an effortlessly smooth mouthfeel.' }
+    ];
+
+    const BENEFITS = [
+      { title: '100% Natural', desc: 'Pure raw wildflower honey. No additives, no refined sugars, no artificial anything.' },
+      { title: 'Never Drips', desc: 'Our unique cold-crystallized texture stays on your knife and on your toast — not on your fingers.' },
+      { title: 'Spreadable Like Butter', desc: 'Smooth, creamy consistency at room temperature. No heating required, even straight from the pantry.' },
+      { title: 'No Artificial Flavors', desc: 'Every infusion comes from real freeze-dried fruits, nuts, and spices. Nothing synthetic.' }
+    ];
+
+    const REVIEWS = [
+      { quote: "Demilie turned my morning toast routine into a Michelin-level experience. The Raspberry & Vanilla is ridiculously good.", author: "Sophia R.", role: "Verified Buyer", rating: 5, flavor: "Wild Raspberry & Vanilla" },
+      { quote: "Finally, honey that doesn't make a sticky mess all over my kitchen counter! Texture is like soft butter.", author: "Marcus T.", role: "Verified Buyer", rating: 5, flavor: "Pure Velvet Wildflower" },
+      { quote: "The gift box set was the star of our holiday dinner party. Beautiful design, exquisite taste.", author: "Elena V.", role: "Verified Buyer", rating: 5, flavor: "Tasting Gift Box" }
+    ];
+
+    // --- STATE ---
+    let cartCount = 2;
+    let activeFilter = 'all';
+    let mobileOpen = false;
+
+    // --- DOM REFS ---
+    const productGrid = document.getElementById('productGrid');
+    const featuresGrid = document.getElementById('featuresGrid');
+    const benefitsGrid = document.getElementById('benefitsGrid');
+    const reviewGrid = document.getElementById('reviewGrid');
+    const cartBadge = document.getElementById('cartBadge');
+    const menuToggle = document.getElementById('menuToggle');
+    const menuIcon = document.getElementById('menuIcon');
+    const mobileNav = document.getElementById('mobileNav');
+
+    // --- RENDER ---
+    function renderProducts(filter) {
+      const filtered = filter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === filter);
+      productGrid.innerHTML = filtered.map(p => `
+        <div class="product-card flex flex-col justify-between relative">
+          <div>
+            <div class="product-img-wrap" style="background: linear-gradient(135deg, ${p.bgGradient});">
+              <span class="badge">${p.badge}</span>
+              <button class="wishlist-btn" aria-label="Add to wishlist"><i class="fa-regular fa-heart"></i></button>
+              <img src="${p.image}" alt="${p.name}" loading="lazy">
+            </div>
+            <div class="flex items-center gap-1.5 text-xs text-stone-500 mb-2">
+              <div class="flex text-amber-500 gap-0.5"><i class="fa-solid fa-star"></i></div>
+              <span class="font-bold text-stone-800">${p.rating}</span>
+              <span>(${p.reviews})</span>
+              <span class="text-stone-300">•</span>
+              <span>${p.weight}</span>
+            </div>
+            <h3 class="font-serif text-lg font-bold text-stone-900 hover:text-amber-800 transition-colors line-clamp-1">${p.name}</h3>
+            <p class="text-stone-600 text-xs leading-relaxed mt-2 line-clamp-2">${p.description}</p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between">
+            <div>
+              <span class="text-xs text-stone-400 block">Price</span>
+              <span class="font-serif text-xl font-bold text-stone-900">$${p.price.toFixed(2)}</span>
+            </div>
+            <button class="cart-btn" onclick="addToCart()" title="Add to Cart"><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderFeatures() {
+      featuresGrid.innerHTML = FEATURES.map(f => `
+        <div class="feature-card space-y-4">
+          <div class="icon-box"><i class="fa-solid ${f.icon} text-amber-600 text-xl"></i></div>
+          <h3 class="font-serif text-lg font-bold text-stone-900">${f.title}</h3>
+          <p class="text-stone-600 text-xs sm:text-sm leading-relaxed">${f.description}</p>
+        </div>
+      `).join('');
+    }
+
+    function renderBenefits() {
+      benefitsGrid.innerHTML = BENEFITS.map(b => `
+        <div class="feature-card space-y-3">
+          <h3 class="font-serif text-lg font-bold text-stone-900">${b.title}</h3>
+          <p class="text-stone-600 text-sm leading-relaxed">${b.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    function renderReviews() {
+      reviewGrid.innerHTML = REVIEWS.map(r => `
+        <div class="testimonial-card space-y-6">
+          <div class="space-y-4">
+            <div class="flex text-amber-500 gap-0.5">${'<i class="fa-solid fa-star"></i>'.repeat(r.rating)}</div>
+            <p class="text-stone-700 italic text-sm sm:text-base leading-relaxed">&ldquo;${r.quote}&rdquo;</p>
+          </div>
+          <div class="pt-4 border-t border-stone-100 flex justify-between items-center text-xs">
+            <div>
+              <div class="font-bold text-stone-900">${r.author}</div>
+              <div class="text-stone-400">${r.role}</div>
+            </div>
+            <span class="bg-stone-100 px-2.5 py-1 rounded-full text-stone-600 font-medium">${r.flavor}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function addToCart() {
+      cartCount++;
+      cartBadge.textContent = cartCount;
+      cartBadge.style.animation = 'none';
+      void cartBadge.offsetWidth;
+      cartBadge.style.animation = 'fadeInUp 0.3s ease';
+    }
+
+    // --- EVENT LISTENERS ---
+    document.getElementById('filterGroup').addEventListener('click', function(e) {
+      const btn = e.target.closest('.filter-pill');
+      if (!btn) return;
+      document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.filter;
+      renderProducts(activeFilter);
+    });
+
+    menuToggle.addEventListener('click', function() {
+      mobileOpen = !mobileOpen;
+      mobileNav.classList.toggle('open', mobileOpen);
+      menuIcon.className = mobileOpen ? 'fa-solid fa-xmark text-xl' : 'fa-solid fa-bars text-xl';
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', function() {
+        mobileOpen = false;
+        mobileNav.classList.remove('open');
+        menuIcon.className = 'fa-solid fa-bars text-xl';
+      });
+    });
+
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('header');
+      header.classList.toggle('header-scrolled', window.scrollY > 40);
+    });
+
+    // cart button ripple effect
+    document.getElementById('cartBtn').addEventListener('click', addToCart);
+
+    // --- INIT ---
+    renderProducts('all');
+    renderFeatures();
+    renderBenefits();
+    renderReviews();
+  </script>
+</body>
+</html>

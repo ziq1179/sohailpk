@@ -1,0 +1,744 @@
+Act as a world-class UI/UX designer and web developer. Create a modern, premium, e-commerce landing page in English for an artisanal gourmet food brand (specifically Creamed Honey with real fruit/berry infusions), inspired by high-end design studios like Art. Lebedev Studio.
+
+### Brand Identity & Aesthetic
+- Name: "Demilie Creamed Honey" (or customizable brand name)
+- Style: Playful elegance, vibrant active geometry, clean typography, and tactile appetizing visuals.
+- Color Palette: Warm honey gold/amber base, off-white, deep charcoal text, paired with vivid flavor accents (bright strawberry red, blueberry indigo, pistachio green, lemon yellow).
+- Typography: Bold, modern sans-serif headers with clean, highly readable body typography. Accent text with custom script/lettering style.
+
+### Page Sections & Structure
+
+1. Hero Section:
+   - Full-width hero banner with a high-impact headline: "Whipped to Perfection. Infused by Nature."
+   - Subtitle explaining creamed honey (100% natural raw honey, finely crystallized into a silky, spreadable texture).
+   - Dynamic product showcase showing a signature honey jar centered with colorful pattern overlays.
+   - Primary Call to Action (CTA): "Shop Flavors" and Secondary CTA: "Discover Creamed Honey".
+
+2. Interactive Product Grid / Catalog:
+   - Grid layout showcasing creamed honey flavors (e.g., Wild Berry, Raspberry & Vanilla, Mango Passionfruit, Pistachio Cream, Pure Golden Raw).
+   - Card Design: High-contrast flavor cards featuring jar visual, active geometric/illustrated patterns corresponding to each flavor, price, weight (e.g., 250g / 8.8 oz), and "Add to Cart" quick button.
+   - Hover Effects: Smooth hover animation revealing texture closeup or flavor notes.
+
+3. "What is Creamed Honey?" Feature Story / Visual Process:
+   - Interactive or step-by-step section explaining the cold-whipping process.
+   - Highlight key product properties: 100% Natural, Never Drips, Spreadable Like Butter, No Artificial Flavors.
+   - Clean 4-column metric/icon bar: Pure Sourced Honey, Zero Added Sugar, Cold-Processed, Eco-Packaging.
+
+4. Flavor Tasting Notes & Usage Inspiration:
+   - Interactive tab bar or carousel showing creative ways to enjoy the honey (e.g., "Spread on Warm Toast," "Swirled into Yogurt," "Drizzled over Pancakes," "Eaten with a Spoon").
+   - Vibrant food photography overlay cards.
+
+5. Premium Gift Box & Bundles Showcase:
+   - Highlighting hexagonal/frame presentation gift boxes for holiday sets or corporate gifting.
+   - Includes "Build Your Own Tasting Box" feature layout.
+
+6. Social Proof / Customer Reviews:
+   - Clean testimonial cards with star ratings, customer quotes, and verified buyer badges.
+
+7. Footer & Newsletter:
+   - "Join the Hive" newsletter subscription box offering a 10% discount on the first order.
+   - Quick navigation links, shipping info, FAQs, social links, and wholesale/vending inquiries.
+
+### Technical & UX Guidelines
+- Fully responsive layout (optimized for mobile, tablet, and desktop).
+- Micro-interactions on buttons, smooth scroll anchors, and subtle floating animations for honey jars/patterns.
+- E-commerce UI elements: Sticky navigation header with logo, search bar, currency converter, and slide-out cart drawer.
+
+
+
+follow the code
+
+import React, { useState } from 'react';
+import { 
+  ShoppingBag, 
+  Menu, 
+  X, 
+  ChevronRight, 
+  Star, 
+  CheckCircle2, 
+  Droplet, 
+  Sparkles, 
+  Heart, 
+  ArrowRight,
+  ShieldCheck,
+  Leaf,
+  Gift,
+  Plus
+} from 'lucide-react';
+
+// --- MOCK DATA ---
+const PRODUCTS = [
+  {
+    id: 'raspberry-vanilla',
+    name: 'Wild Raspberry & Madagascar Vanilla',
+    price: 18.50,
+    weight: '250g / 8.8 oz',
+    rating: 4.9,
+    reviews: 128,
+    badge: 'Bestseller',
+    bgGradient: 'from-rose-500/10 to-pink-500/20',
+    accentColor: 'bg-rose-500',
+    accentText: 'text-rose-600',
+    description: 'Silky creamed clover honey infused with freeze-dried organic raspberries and real vanilla bean dots.',
+    image: 'https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&q=80&w=600'
+  },
+  {
+    id: 'pistachio-cardamom',
+    name: 'Sicilian Pistachio & Cardamom',
+    price: 21.00,
+    weight: '250g / 8.8 oz',
+    rating: 4.8,
+    reviews: 94,
+    badge: 'Limited Edition',
+    bgGradient: 'from-emerald-500/10 to-teal-500/20',
+    accentColor: 'bg-emerald-600',
+    accentText: 'text-emerald-600',
+    description: 'Ground Bronte pistachios blended with subtle green cardamom for a nutty, aromatic finish.',
+    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=600'
+  },
+  {
+    id: 'mango-passionfruit',
+    name: 'Alphonso Mango & Passionfruit',
+    price: 19.00,
+    weight: '250g / 8.8 oz',
+    rating: 5.0,
+    reviews: 76,
+    badge: 'Trending',
+    bgGradient: 'from-amber-500/10 to-orange-500/20',
+    accentColor: 'bg-amber-500',
+    accentText: 'text-amber-600',
+    description: 'Tropical sweetness balanced by crisp passionfruit tartness. Electric color and vibrant taste.',
+    image: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&fit=crop&q=80&w=600'
+  },
+  {
+    id: 'pure-golden',
+    name: 'Pure Velvet Wildflower',
+    price: 16.00,
+    weight: '250g / 8.8 oz',
+    rating: 4.9,
+    reviews: 210,
+    badge: 'Classic',
+    bgGradient: 'from-yellow-500/10 to-amber-500/20',
+    accentColor: 'bg-yellow-500',
+    accentText: 'text-yellow-600',
+    description: 'Single-origin wildflower raw honey whipped slowly to achieve a butter-soft spreadable texture.',
+    image: 'https://images.unsplash.com/photo-1587049352851-8d4e89133924?auto=format&fit=crop&q=80&w=600'
+  }
+];
+
+const FEATURES = [
+  {
+    icon: <Droplet className="w-6 h-6 text-amber-600" />,
+    title: 'Zero Drips, Pure Silk',
+    description: 'Controlled cold-crystallization creates a thick, buttery texture that stays smoothly on your knife without liquid mess.'
+  },
+  {
+    icon: <Leaf className="w-6 h-6 text-amber-600" />,
+    title: '100% Whole Real Fruit',
+    description: 'We freeze-dry peak-harvest organic berries and fruits, locking in natural antioxidants, bright flavors, and vivid colors.'
+  },
+  {
+    icon: <ShieldCheck className="w-6 h-6 text-amber-600" />,
+    title: 'Raw & Unpasteurized',
+    description: 'Never heated above natural hive temperatures, preserving all beneficial honey enzymes, pollen, and propolis intact.'
+  },
+  {
+    icon: <Sparkles className="w-6 h-6 text-amber-600" />,
+    title: 'Artisanal Whipping Process',
+    description: 'Batch-whipped over 72 slow hours using traditional European methods for an effortlessly smooth mouthfeel.'
+  }
+];
+
+const REVIEWS = [
+  {
+    quote: "Demilie turned my morning toast routine into a Michelin-level experience. The Raspberry & Vanilla is ridiculously good.",
+    author: "Sophia R.",
+    role: "Verified Buyer",
+    rating: 5,
+    flavor: "Wild Raspberry & Vanilla"
+  },
+  {
+    quote: "Finally, honey that doesn't make a sticky mess all over my kitchen counter! Texture is like soft butter.",
+    author: "Marcus T.",
+    role: "Verified Buyer",
+    rating: 5,
+    flavor: "Pure Velvet Wildflower"
+  },
+  {
+    quote: "The gift box set was the star of our holiday dinner party. Beautiful design, exquisite taste.",
+    author: "Elena V.",
+    role: "Verified Buyer",
+    rating: 5,
+    flavor: "Tasting Gift Box"
+  }
+];
+
+export default function DemilieLandingPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(2);
+  const [activeTab, setActiveTab] = useState('all');
+
+  return (
+    <div className="min-h-screen bg-[#FAF8F5] text-stone-900 font-sans selection:bg-amber-200 selection:text-amber-900">
+      
+      {/* --- TOP ANNOUNCEMENT BAR --- */}
+      <div className="bg-stone-900 text-stone-200 text-xs py-2 px-4 text-center tracking-wide flex items-center justify-center gap-2">
+        <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+        <span>Complimentary Express Shipping on Orders Over $50</span>
+        <span className="hidden sm:inline opacity-60">| Code: PUREGOLD</span>
+      </div>
+
+      {/* --- NAVIGATION --- */}
+      <header className="sticky top-0 z-40 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-stone-200/60 transition-all">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+          
+          {/* Brand Logo */}
+          <a href="#" className="flex items-center gap-2 group">
+            <span className="font-serif text-3xl font-extrabold tracking-tight text-stone-900 group-hover:text-amber-700 transition-colors">
+              DEMILIE
+            </span>
+            <span className="text-xs uppercase tracking-widest bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded-full border border-amber-300">
+              Creamed
+            </span>
+          </a>
+
+          {/* Desktop Links */}
+          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-stone-700">
+            <a href="#shop" className="hover:text-amber-700 transition-colors">Shop Flavors</a>
+            <a href="#about" className="hover:text-amber-700 transition-colors">Our Process</a>
+            <a href="#benefits" className="hover:text-amber-700 transition-colors">Why Creamed?</a>
+            <a href="#gifting" className="hover:text-amber-700 transition-colors">Gift Sets</a>
+            <a href="#reviews" className="hover:text-amber-700 transition-colors">Reviews</a>
+          </nav>
+
+          {/* Action Icons */}
+          <div className="flex items-center gap-4">
+            <button 
+              aria-label="Shopping Cart"
+              className="relative p-2.5 rounded-full bg-stone-100 hover:bg-amber-100 text-stone-800 transition-colors"
+            >
+              <ShoppingBag className="w-5 h-5" />
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-amber-600 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#FAF8F5]">
+                  {cartCount}
+                </span>
+              )}
+            </button>
+
+            {/* Mobile Menu Toggle */}
+            <button 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 text-stone-800 hover:text-amber-700"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation Drawer */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-[#FAF8F5] border-b border-stone-200 px-6 py-6 space-y-4">
+            <a 
+              href="#shop" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-lg font-medium text-stone-800 hover:text-amber-700"
+            >
+              Shop Flavors
+            </a>
+            <a 
+              href="#about" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-lg font-medium text-stone-800 hover:text-amber-700"
+            >
+              Our Process
+            </a>
+            <a 
+              href="#benefits" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-lg font-medium text-stone-800 hover:text-amber-700"
+            >
+              Why Creamed?
+            </a>
+            <a 
+              href="#gifting" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-lg font-medium text-stone-800 hover:text-amber-700"
+            >
+              Gift Sets
+            </a>
+            <a 
+              href="#reviews" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-lg font-medium text-stone-800 hover:text-amber-700"
+            >
+              Reviews
+            </a>
+          </div>
+        )}
+      </header>
+
+      {/* --- HERO SECTION --- */}
+      <section className="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-32">
+        {/* Subtle Background Geometric Accents */}
+        <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-amber-200/30 rounded-full blur-3xl -z-10" />
+        <div className="absolute top-48 right-10 w-72 h-72 bg-rose-200/30 rounded-full blur-2xl -z-10" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Hero Left Content */}
+          <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-100/80 border border-amber-300 text-amber-900 text-xs font-semibold uppercase tracking-wider">
+              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+              100% Natural Raw Honey
+            </div>
+
+            <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold text-stone-900 leading-[1.1] tracking-tight">
+              Whipped to perfection. <br />
+              <span className="text-amber-800 italic font-normal">Infused by nature.</span>
+            </h1>
+
+            <p className="text-lg sm:text-xl text-stone-600 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
+              Experience honey reinvented. Silky, spreadable raw wildflower honey cold-whipped with 100% organic freeze-dried fruits and botanicals. Never drips, forever delicious.
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+              <a 
+                href="#shop" 
+                className="w-full sm:w-auto px-8 py-4 bg-stone-900 text-stone-50 font-medium rounded-full shadow-lg hover:bg-amber-700 transition-all duration-300 flex items-center justify-center gap-2 group"
+              >
+                Explore All Flavors
+                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+              <a 
+                href="#about" 
+                className="w-full sm:w-auto px-8 py-4 bg-white/80 border border-stone-300 text-stone-800 font-medium rounded-full hover:bg-stone-100 transition-colors text-center"
+              >
+                Discover the Craft
+              </a>
+            </div>
+
+            {/* Social Proof Badges */}
+            <div className="pt-6 border-t border-stone-200/80 flex items-center justify-center lg:justify-start gap-8 text-stone-600 text-xs font-medium">
+              <div className="flex items-center gap-1.5">
+                <div className="flex text-amber-500">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-current" />
+                  ))}
+                </div>
+                <span className="text-stone-900 font-bold">4.9/5.0</span>
+                <span>(1,400+ reviews)</span>
+              </div>
+              <div className="hidden sm:flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                Non-GMO & Gluten Free
+              </div>
+            </div>
+          </div>
+
+          {/* Hero Right Visual */}
+          <div className="lg:col-span-5 relative">
+            <div className="relative mx-auto max-w-md lg:max-w-none">
+              
+              {/* Main Decorative Card */}
+              <div className="relative bg-gradient-to-b from-amber-100 to-amber-50/50 p-6 sm:p-8 rounded-3xl border border-amber-200/60 shadow-2xl overflow-hidden">
+                <div className="absolute top-0 right-0 w-40 h-40 bg-amber-300/40 rounded-full blur-2xl -z-0" />
+                
+                <img 
+                  src="https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&q=80&w=800" 
+                  alt="Demilie Raspberry Creamed Honey Jar" 
+                  className="w-full h-80 sm:h-96 object-cover rounded-2xl shadow-md z-10 relative"
+                />
+
+                {/* Floating Tag */}
+                <div className="absolute bottom-10 left-10 right-10 bg-white/95 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-stone-200/60 flex items-center justify-between z-20">
+                  <div>
+                    <div className="text-xs uppercase tracking-wider text-amber-800 font-semibold">Signature Favorite</div>
+                    <div className="text-sm font-bold text-stone-900">Wild Raspberry & Vanilla</div>
+                  </div>
+                  <span className="text-amber-900 font-bold bg-amber-100 px-3 py-1 rounded-full text-sm">
+                    $18.50
+                  </span>
+                </div>
+              </div>
+
+              {/* Decorative Accent Badges */}
+              <div className="absolute -top-4 -left-4 bg-stone-900 text-white p-3 rounded-2xl shadow-xl hidden sm:flex items-center gap-2 text-xs font-semibold">
+                <Droplet className="w-4 h-4 text-amber-400" />
+                Velvety Texture
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* --- QUICK BENEFIT BANNER --- */}
+      <section className="bg-stone-900 text-stone-100 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div className="space-y-1">
+              <div className="font-serif text-2xl sm:text-3xl font-bold text-amber-400">100%</div>
+              <div className="text-xs uppercase tracking-widest text-stone-400">Raw Raw Wildflower Honey</div>
+            </div>
+            <div className="space-y-1">
+              <div className="font-serif text-2xl sm:text-3xl font-bold text-amber-400">0%</div>
+              <div className="text-xs uppercase tracking-widest text-stone-400">Added Sugar or Syrups</div>
+            </div>
+            <div className="space-y-1">
+              <div className="font-serif text-2xl sm:text-3xl font-bold text-amber-400">72 Hrs</div>
+              <div className="text-xs uppercase tracking-widest text-stone-400">Cold-Whipped Craft</div>
+            </div>
+            <div className="space-y-1">
+              <div className="font-serif text-2xl sm:text-3xl font-bold text-amber-400">12+</div>
+              <div className="text-xs uppercase tracking-widest text-stone-400">Gourmet Infusions</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* --- PRODUCT CATALOG SECTION --- */}
+      <section id="shop" className="py-20 lg:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+          <div>
+            <span className="text-xs uppercase tracking-widest text-amber-800 font-bold">The Collection</span>
+            <h2 className="font-serif text-3xl sm:text-5xl font-bold text-stone-900 mt-2">
+              Explore Artisanal Infusions
+            </h2>
+          </div>
+
+          {/* Filter Pills */}
+          <div className="flex flex-wrap gap-2">
+            {['all', 'fruit', 'nut', 'classic'].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`px-4 py-2 rounded-full text-xs font-semibold capitalize transition-all ${
+                  activeTab === tab
+                    ? 'bg-stone-900 text-white'
+                    : 'bg-stone-200/70 text-stone-700 hover:bg-stone-300'
+                }`}
+              >
+                {tab === 'all' ? 'All Flavors' : tab}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Product Cards Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {PRODUCTS.map((product) => (
+            <div 
+              key={product.id}
+              className="group bg-white rounded-3xl p-5 border border-stone-200/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden"
+            >
+              {/* Top Card Visual Header */}
+              <div>
+                <div className={`relative h-64 rounded-2xl overflow-hidden mb-5 bg-gradient-to-br ${product.bgGradient}`}>
+                  
+                  {/* Badge */}
+                  <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-stone-900 text-[11px] font-bold px-3 py-1 rounded-full shadow-sm z-10">
+                    {product.badge}
+                  </span>
+
+                  {/* Wishlist Button */}
+                  <button 
+                    aria-label="Add to wishlist"
+                    className="absolute top-3 right-3 p-2 rounded-full bg-white/80 hover:bg-white text-stone-700 hover:text-rose-600 transition-colors z-10"
+                  >
+                    <Heart className="w-4 h-4" />
+                  </button>
+
+                  {/* Product Image */}
+                  <img 
+                    src={product.image} 
+                    alt={product.name} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+
+                {/* Rating */}
+                <div className="flex items-center gap-1.5 text-xs text-stone-500 mb-2">
+                  <div className="flex text-amber-500">
+                    <Star className="w-3.5 h-3.5 fill-current" />
+                  </div>
+                  <span className="font-bold text-stone-800">{product.rating}</span>
+                  <span>({product.reviews})</span>
+                  <span className="text-stone-300">•</span>
+                  <span>{product.weight}</span>
+                </div>
+
+                {/* Title & Description */}
+                <h3 className="font-serif text-lg font-bold text-stone-900 group-hover:text-amber-800 transition-colors line-clamp-1">
+                  {product.name}
+                </h3>
+                <p className="text-stone-600 text-xs leading-relaxed mt-2 line-clamp-2">
+                  {product.description}
+                </p>
+              </div>
+
+              {/* Price & Add to Cart Footer */}
+              <div className="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between">
+                <div>
+                  <span className="text-xs text-stone-400 block">Price</span>
+                  <span className="font-serif text-xl font-bold text-stone-900">${product.price.toFixed(2)}</span>
+                </div>
+
+                <button 
+                  onClick={() => setCartCount(c => c + 1)}
+                  className="bg-stone-900 hover:bg-amber-700 text-white p-3 rounded-full transition-colors flex items-center justify-center shadow-md"
+                  title="Add to Cart"
+                >
+                  <Plus className="w-4 h-4" />
+                </button>
+              </div>
+
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* --- WHY CREAMED HONEY / PROCESS SECTION --- */}
+      <section id="about" className="py-20 bg-stone-100/70 border-y border-stone-200/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="max-w-3xl mx-auto text-center mb-16 space-y-4">
+            <span className="text-xs uppercase tracking-widest text-amber-800 font-bold">The Craftsmanship</span>
+            <h2 className="font-serif text-3xl sm:text-5xl font-bold text-stone-900">
+              Why Creamed Honey is Superior
+            </h2>
+            <p className="text-stone-600 text-base sm:text-lg">
+              Liquid honey crystallizes unevenly into gritty chunks over time. We guide the natural crystallization process under cold temperatures to create ultra-fine micro-crystals.
+            </p>
+          </div>
+
+          {/* 4 Feature Columns */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {FEATURES.map((feature, idx) => (
+              <div 
+                key={idx} 
+                className="bg-white p-8 rounded-3xl border border-stone-200/60 shadow-sm hover:shadow-md transition-shadow space-y-4"
+              >
+                <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200/60 flex items-center justify-center">
+                  {feature.icon}
+                </div>
+                <h3 className="font-serif text-lg font-bold text-stone-900">{feature.title}</h3>
+                <p className="text-stone-600 text-xs sm:text-sm leading-relaxed">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Visual Step-by-Step Breakdown */}
+          <div className="mt-16 bg-white rounded-3xl p-8 sm:p-12 border border-stone-200/80 grid md:grid-cols-3 gap-8 text-center relative overflow-hidden">
+            <div className="space-y-3">
+              <span className="text-xs font-bold uppercase tracking-widest text-amber-700 bg-amber-100 px-3 py-1 rounded-full">Step 01</span>
+              <h4 className="font-serif text-xl font-bold">Pure Raw Harvesting</h4>
+              <p className="text-stone-600 text-xs sm:text-sm">Sourced directly from sustainable ethical apiaries away from industrial pesticide zones.</p>
+            </div>
+            <div className="space-y-3">
+              <span className="text-xs font-bold uppercase tracking-widest text-amber-700 bg-amber-100 px-3 py-1 rounded-full">Step 02</span>
+              <h4 className="font-serif text-xl font-bold">72-Hour Cold Whip</h4>
+              <p className="text-stone-600 text-xs sm:text-sm">Slow mechanical churning controlled at 57°F to foster uniform microscopic seed crystals.</p>
+            </div>
+            <div className="space-y-3">
+              <span className="text-xs font-bold uppercase tracking-widest text-amber-700 bg-amber-100 px-3 py-1 rounded-full">Step 03</span>
+              <h4 className="font-serif text-xl font-bold">Organic Botanical Blend</h4>
+              <p className="text-stone-600 text-xs sm:text-sm">Freeze-dried berries and natural spices folded in right before small-batch hand filling.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* --- GIFT SET BANNER SECTION --- */}
+      <section id="gifting" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-stone-900 text-white rounded-3xl p-8 sm:p-12 lg:p-16 relative overflow-hidden grid lg:grid-cols-12 gap-8 items-center shadow-2xl">
+          
+          <div className="lg:col-span-7 space-y-6 z-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-bold uppercase tracking-wider">
+              <Gift className="w-3.5 h-3.5" />
+              Luxury Presentation Box
+            </div>
+
+            <h2 className="font-serif text-3xl sm:text-5xl font-bold text-stone-100 leading-tight">
+              Give the Gift of Pure Taste
+            </h2>
+
+            <p className="text-stone-300 text-base sm:text-lg max-w-xl font-light">
+              Our signature Tasting Gift Sets come beautifully packaged in geometric embossed rigid boxes. Includes 4 mini jars of our bestselling infusions plus a handcrafted wooden honey wand.
+            </p>
+
+            <ul className="space-y-2 text-xs sm:text-sm text-stone-300">
+              <li className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-amber-400" /> Includes custom handwritten gift note card
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-amber-400" /> Ideal for corporate gifting, weddings, or holiday hosts
+              </li>
+            </ul>
+
+            <div className="pt-4 flex flex-col sm:flex-row gap-4">
+              <button className="px-8 py-4 bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold rounded-full transition-colors flex items-center justify-center gap-2">
+                Build Your Gift Box ($48.00)
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          <div className="lg:col-span-5 z-10">
+            <img 
+              src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=800" 
+              alt="Demilie Honey Gift Box" 
+              className="rounded-2xl shadow-2xl border border-stone-800 object-cover w-full h-80 lg:h-96"
+            />
+          </div>
+
+          {/* Background Glow */}
+          <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-amber-600/20 rounded-full blur-3xl pointer-events-none" />
+        </div>
+      </section>
+
+      {/* --- TESTIMONIALS SECTION --- */}
+      <section id="reviews" className="py-20 bg-amber-50/50 border-t border-amber-200/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
+            <span className="text-xs uppercase tracking-widest text-amber-800 font-bold">Community Love</span>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900">
+              Loved by Foodies & Chefs
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {REVIEWS.map((rev, idx) => (
+              <div 
+                key={idx} 
+                className="bg-white p-8 rounded-3xl border border-stone-200/80 shadow-sm flex flex-col justify-between space-y-6"
+              >
+                <div className="space-y-4">
+                  <div className="flex text-amber-500">
+                    {[...Array(rev.rating)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-current" />
+                    ))}
+                  </div>
+                  <p className="text-stone-700 italic text-sm sm:text-base leading-relaxed">
+                    "{rev.quote}"
+                  </p>
+                </div>
+
+                <div className="pt-4 border-t border-stone-100 flex justify-between items-center text-xs">
+                  <div>
+                    <div className="font-bold text-stone-900">{rev.author}</div>
+                    <div className="text-stone-400">{rev.role}</div>
+                  </div>
+                  <span className="bg-stone-100 px-2.5 py-1 rounded-full text-stone-600 font-medium">
+                    {rev.flavor}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* --- NEWSLETTER / JOIN THE HIVE --- */}
+      <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-gradient-to-br from-amber-100 via-amber-50 to-stone-100 rounded-3xl p-8 sm:p-16 border border-amber-200/80 text-center space-y-6 relative overflow-hidden">
+          
+          <span className="text-xs uppercase tracking-widest text-amber-900 font-bold bg-amber-200/80 px-3 py-1 rounded-full">
+            Join The Hive
+          </span>
+
+          <h2 className="font-serif text-3xl sm:text-5xl font-bold text-stone-900 max-w-2xl mx-auto">
+            Get 15% Off Your First Creamed Honey Order
+          </h2>
+
+          <p className="text-stone-600 max-w-md mx-auto text-xs sm:text-sm">
+            Subscribe for seasonal flavor drops, chef recipe pairings, and VIP early access to limited batch releases.
+          </p>
+
+          <form onSubmit={(e) => e.preventDefault()} className="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+            <input 
+              type="email" 
+              placeholder="Enter your email address" 
+              className="flex-1 px-5 py-3.5 rounded-full border border-stone-300 text-sm focus:outline-none focus:ring-2 focus:ring-amber-600 bg-white"
+              required
+            />
+            <button 
+              type="submit" 
+              className="px-7 py-3.5 bg-stone-900 hover:bg-amber-800 text-white font-medium text-sm rounded-full transition-colors shadow-md"
+            >
+              Subscribe
+            </button>
+          </form>
+
+          <p className="text-[11px] text-stone-400">No spam, ever. Unsubscribe anytime with one click.</p>
+        </div>
+      </section>
+
+      {/* --- FOOTER --- */}
+      <footer className="bg-stone-900 text-stone-400 text-xs py-16 border-t border-stone-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+          
+          {/* Brand Col */}
+          <div className="col-span-2 space-y-4">
+            <a href="#" className="font-serif text-2xl font-bold text-white tracking-tight">
+              DEMILIE
+            </a>
+            <p className="text-stone-400 max-w-sm leading-relaxed">
+              Crafting cold-whipped artisanal creamed honey infused with organic botanicals. Sourced sustainably, whipped with passion.
+            </p>
+            <div className="text-stone-500">© {new Date().getFullYear()} Demilie Honey Inc. All rights reserved.</div>
+          </div>
+
+          {/* Quick Links */}
+          <div className="space-y-3">
+            <div className="font-semibold text-white uppercase tracking-wider text-[11px]">Shop</div>
+            <ul className="space-y-2">
+              <li><a href="#shop" className="hover:text-amber-400 transition-colors">All Flavors</a></li>
+              <li><a href="#shop" className="hover:text-amber-400 transition-colors">Berry Infusions</a></li>
+              <li><a href="#gifting" className="hover:text-amber-400 transition-colors">Gift Sets</a></li>
+              <li><a href="#" className="hover:text-amber-400 transition-colors">Wholesale & B2B</a></li>
+            </ul>
+          </div>
+
+          {/* Learn Links */}
+          <div className="space-y-3">
+            <div className="font-semibold text-white uppercase tracking-wider text-[11px]">Learn</div>
+            <ul className="space-y-2">
+              <li><a href="#about" className="hover:text-amber-400 transition-colors">Our Process</a></li>
+              <li><a href="#benefits" className="hover:text-amber-400 transition-colors">What is Creamed Honey?</a></li>
+              <li><a href="#" className="hover:text-amber-400 transition-colors">Bee Sustainability</a></li>
+              <li><a href="#" className="hover:text-amber-400 transition-colors">Recipes & Ideas</a></li>
+            </ul>
+          </div>
+
+          {/* Support Links */}
+          <div className="space-y-3">
+            <div className="font-semibold text-white uppercase tracking-wider text-[11px]">Help</div>
+            <ul className="space-y-2">
+              <li><a href="#" className="hover:text-amber-400 transition-colors">Shipping & Returns</a></li>
+              <li><a href="#" className="hover:text-amber-400 transition-colors">Track Your Order</a></li>
+              <li><a href="#" className="hover:text-amber-400 transition-colors">FAQs</a></li>
+              <li><a href="#" className="hover:text-amber-400 transition-colors">Contact Us</a></li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 border-t border-stone-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-stone-500">
+          <div>Made with care for natural honey lovers worldwide.</div>
+          <div className="flex gap-6">
+            <a href="#" className="hover:text-stone-300">Privacy Policy</a>
+            <a href="#" className="hover:text-stone-300">Terms of Service</a>
+            <a href="#" className="hover:text-stone-300">Accessibility</a>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  );
+}
+
