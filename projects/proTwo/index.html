@@ -231,7 +231,7 @@
   <!-- ANNOUNCEMENT BAR -->
   <div class="announcement-bar">
     <i class="fa-solid fa-sparkles text-amber-400"></i>
-    <span>Complimentary Express Shipping on Orders Over $50</span>
+    <span>Free Delivery on Orders Over Rs. 12,000</span>
     <span class="hidden sm:inline opacity-60">| Code: PUREGOLD</span>
   </div>
 
@@ -316,7 +316,7 @@
                 <div class="text-xs uppercase tracking-wider text-amber-800 font-semibold">Signature Favorite</div>
                 <div class="text-sm font-bold text-stone-900">Wild Raspberry & Vanilla</div>
               </div>
-              <span class="text-amber-900 font-bold bg-amber-100 px-3 py-1 rounded-full text-sm">$18.50</span>
+              <span class="text-amber-900 font-bold bg-amber-100 px-3 py-1 rounded-full text-sm">Rs. 5,199</span>
             </div>
           </div>
           <div class="absolute -top-4 -left-4 bg-stone-900 text-white p-3 rounded-2xl shadow-xl hidden sm:flex items-center gap-2 text-xs font-semibold">
@@ -426,7 +426,7 @@
         </ul>
         <div class="pt-4 flex flex-col sm:flex-row gap-4">
           <button class="px-8 py-4 bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold rounded-full transition-colors flex items-center justify-center gap-2 cursor-pointer">
-            Build Your Gift Box ($48.00)
+            Build Your Gift Box (Rs. 13,499)
             <i class="fa-solid fa-arrow-right"></i>
           </button>
         </div>
@@ -513,10 +513,10 @@
   <script>
     // --- DATA ---
     const PRODUCTS = [
-      { id: 'raspberry-vanilla', name: 'Wild Raspberry & Madagascar Vanilla', price: 18.50, weight: '250g / 8.8 oz', rating: 4.9, reviews: 128, badge: 'Bestseller', category: 'fruit', bgGradient: 'from-rose-500/10 to-pink-500/20', description: 'Silky creamed clover honey infused with freeze-dried organic raspberries and real vanilla bean dots.', image: 'https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&q=80&w=600' },
-      { id: 'pistachio-cardamom', name: 'Sicilian Pistachio & Cardamom', price: 21.00, weight: '250g / 8.8 oz', rating: 4.8, reviews: 94, badge: 'Limited Edition', category: 'nut', bgGradient: 'from-emerald-500/10 to-teal-500/20', description: 'Ground Bronte pistachios blended with subtle green cardamom for a nutty, aromatic finish.', image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=600' },
-      { id: 'mango-passionfruit', name: 'Alphonso Mango & Passionfruit', price: 19.00, weight: '250g / 8.8 oz', rating: 5.0, reviews: 76, badge: 'Trending', category: 'fruit', bgGradient: 'from-amber-500/10 to-orange-500/20', description: 'Tropical sweetness balanced by crisp passionfruit tartness. Electric color and vibrant taste.', image: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&fit=crop&q=80&w=600' },
-      { id: 'pure-golden', name: 'Pure Velvet Wildflower', price: 16.00, weight: '250g / 8.8 oz', rating: 4.9, reviews: 210, badge: 'Classic', category: 'classic', bgGradient: 'from-yellow-500/10 to-amber-500/20', description: 'Single-origin wildflower raw honey whipped slowly to achieve a butter-soft spreadable texture.', image: 'https://images.unsplash.com/photo-1587049352851-8d4e89133924?auto=format&fit=crop&q=80&w=600' }
+      { id: 'raspberry-vanilla', name: 'Wild Raspberry & Madagascar Vanilla', price: 5199, weight: '250g', rating: 4.9, reviews: 128, badge: 'Bestseller', category: 'fruit', bgGradient: 'from-rose-500/10 to-pink-500/20', description: 'Silky creamed clover honey infused with freeze-dried organic raspberries and real vanilla bean dots.', image: 'https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&q=80&w=600' },
+      { id: 'pistachio-cardamom', name: 'Sicilian Pistachio & Cardamom', price: 5899, weight: '250g', rating: 4.8, reviews: 94, badge: 'Limited Edition', category: 'nut', bgGradient: 'from-emerald-500/10 to-teal-500/20', description: 'Ground Bronte pistachios blended with subtle green cardamom for a nutty, aromatic finish.', image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=600' },
+      { id: 'mango-passionfruit', name: 'Alphonso Mango & Passionfruit', price: 5349, weight: '250g', rating: 5.0, reviews: 76, badge: 'Trending', category: 'fruit', bgGradient: 'from-amber-500/10 to-orange-500/20', description: 'Tropical sweetness balanced by crisp passionfruit tartness. Electric color and vibrant taste.', image: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&fit=crop&q=80&w=600' },
+      { id: 'pure-golden', name: 'Pure Velvet Wildflower', price: 4499, weight: '250g', rating: 4.9, reviews: 210, badge: 'Classic', category: 'classic', bgGradient: 'from-yellow-500/10 to-amber-500/20', description: 'Single-origin wildflower raw honey whipped slowly to achieve a butter-soft spreadable texture.', image: 'https://images.unsplash.com/photo-1587049352851-8d4e89133924?auto=format&fit=crop&q=80&w=600' }
     ];
 
     const FEATURES = [
@@ -578,7 +578,7 @@
           <div class="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between">
             <div>
               <span class="text-xs text-stone-400 block">Price</span>
-              <span class="font-serif text-xl font-bold text-stone-900">$${p.price.toFixed(2)}</span>
+              <span class="font-serif text-xl font-bold text-stone-900">Rs. ${p.price.toLocaleString()}</span>
             </div>
             <button class="cart-btn" onclick="addToCart()" title="Add to Cart"><i class="fa-solid fa-plus"></i></button>
           </div>
